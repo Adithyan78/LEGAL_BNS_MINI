@@ -68,9 +68,12 @@ export default function Home() {
     { code: "BNS 305", description: "Aggravated theft • Punishment up to 7 years", score: "0.87" }
   ];
 
-  // ===== CURSOR - RAF OPTIMIZED =====
+  // ===== CURSOR - RAF OPTIMIZED WITH EMOJI =====
   useEffect(() => {
     mountedRef.current = true;
+    
+    // Hide default cursor
+    document.body.style.cursor = 'none';
     
     const updateCursor = (e) => {
       if (!mountedRef.current) return;
@@ -80,16 +83,33 @@ export default function Home() {
         if (!mountedRef.current) return;
         setCursorPos({ x: e.clientX, y: e.clientY });
         if (cursorRef.current) {
-          cursorRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+          cursorRef.current.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 22}px)`;
         }
       });
     };
 
+    const handleMouseLeave = () => {
+      if (cursorRef.current) {
+        cursorRef.current.style.opacity = '0';
+      }
+    };
+
+    const handleMouseEnter = () => {
+      if (cursorRef.current) {
+        cursorRef.current.style.opacity = '1';
+      }
+    };
+
     window.addEventListener('mousemove', updateCursor, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mouseenter', handleMouseEnter);
     
     return () => {
       mountedRef.current = false;
+      document.body.style.cursor = 'default';
       window.removeEventListener('mousemove', updateCursor);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mouseenter', handleMouseEnter);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
@@ -212,15 +232,47 @@ export default function Home() {
     <Layout>
       <div className="legal-rag-home">
         
-        {/* ===== CURSOR - STATIC POSITIONING ===== */}
-        <div className="cursor-glow" ref={cursorRef} />
+        {/* ===== CURSOR - ⚖️ EMOJI ===== */}
         <div 
-          className="cursor-dot" 
-          style={{ 
-            transform: `translate(${cursorPos.x}px, ${cursorPos.y}px)`,
+          ref={cursorRef}
+          className="custom-cursor"
+          style={{
+            position: 'fixed',
+            left: 0,
+            top: 0,
+            fontSize: '32px',
+            lineHeight: 1,
+            pointerEvents: 'none',
+            zIndex: 99999,
+            transform: `translate(${cursorPos.x - 18}px, ${cursorPos.y - 22}px)`,
             opacity: cursorPos.x ? 1 : 0,
-            willChange: 'transform'
-          }} 
+            willChange: 'transform',
+            transition: 'opacity 0.2s ease',
+            filter: 'drop-shadow(0 0 10px rgba(212,175,55,0.5))',
+            textShadow: '0 0 12px rgba(212,175,55,0.4)'
+          }}
+        >
+          ⚖️
+        </div>
+        
+        {/* Optional: Add subtle glow trail */}
+        <div 
+          className="cursor-trail"
+          style={{
+            position: 'fixed',
+            left: 0,
+            top: 0,
+            width: '48px',
+            height: '48px',
+            background: 'radial-gradient(circle, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0) 70%)',
+            borderRadius: '50%',
+            pointerEvents: 'none',
+            zIndex: 99998,
+            transform: `translate(${cursorPos.x - 24}px, ${cursorPos.y - 24}px)`,
+            opacity: cursorPos.x ? 0.6 : 0,
+            willChange: 'transform',
+            transition: 'opacity 0.2s ease'
+          }}
         />
 
         {/* ===== GRID OVERLAY ===== */}
@@ -232,7 +284,7 @@ export default function Home() {
             <div className="hero-content reveal">
               <div className="status-badge">
                 <span className="status-dot" />
-                <span>DeepSeek Legal RAG • v2.0</span>
+                <span>LEX AI Legal RAG • v1.0</span>
               </div>
               
               <h1 className="hero-title">
@@ -530,7 +582,7 @@ export default function Home() {
                 <a href="#">Docs</a>
               </div>
               <div className="footer-meta">
-                <span>© 2026 DeepSeek</span>
+                <span>© 2026 Lex AI</span>
                 <span className="divider">•</span>
                 <span>18.4M indexed</span>
               </div>

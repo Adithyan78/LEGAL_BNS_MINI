@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
+const axios = require("axios");
+
 require("dotenv").config();
 
 const app = express();
@@ -42,6 +44,92 @@ const Chat = mongoose.model("Chat", {
 });
 
 /* ================= AUTH ================= */
+/* SIGNUP */
+app.post("/auth/signup", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ msg: "All fields required" });
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ msg: "Email already registered" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword
+    });
+
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    res.status(201).json({
+      msg: "User created",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
+
+  } catch (err) {
+    console.error("Signup Error:", err);
+    res.status(500).json({ msg: "Server error" });
+  }
+});
+/* LOGIN */
+app.post("/auth/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ msg: "All fields required" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: "Invalid credentials" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid credentials" });
+    }
+
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    res.json({
+      msg: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
+
+  } catch (err) {
+    console.error("Login Error:", err);
+    res.status(500).json({ msg: "Server error" });
+  }
+});
 
 const auth = (req, res, next) => {
   const header = req.headers.authorization;
@@ -131,6 +219,47 @@ app.delete("/chat/:chatId", auth, async (req, res) => {
   } catch (err) {
     console.error("Delete Error:", err);
     res.status(500).json({ msg: "Server error" });
+  }
+});
+
+
+/* ================= AI INTEGRATION ================= */
+
+app.post("/api/analyze-case", async (req, res) => {
+  try {
+    const { case_description } = req.body;
+
+    if (!case_description) {
+      return res.status(400).json({
+        success: false,
+        message: "Case description is required",
+      });
+    }
+
+    // Send request to FastAPI service
+    const response = await axios.post(
+      "http://localhost:8000/analyze",
+      {
+        case_description: case_description,
+      },
+      {
+        timeout: 60000, // 60 sec timeout for RAG
+      }
+    );
+
+    // Send AI result back to frontend
+    res.status(200).json({
+      success: true,
+      analysis: response.data,
+    });
+
+  } catch (error) {
+    console.error("AI Service Error:", error.message);
+
+    res.status(500).json({
+      success: false,
+      message: "AI analysis failed",
+    });
   }
 });
 

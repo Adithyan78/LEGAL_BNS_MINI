@@ -10,18 +10,19 @@ export default function Chatbot() {
     {
       id: 1,
       text: "Hello! I'm your Legal AI Assistant. How can I help you with IPC/BNS legal analysis today?",
-      sender: "bot",
+      sender: "assistant",
       timestamp: new Date(),
-    }
+    },
   ]);
 
   const [chatId, setChatId] = useState(uuidv4());
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const messagesEndRef = useRef(null);
-  const fileInputRef = useRef(null);
+  const inputRef = useRef(null);
 
   /* ================= AUTO SCROLL ================= */
   useEffect(() => {
@@ -36,7 +37,7 @@ export default function Chatbot() {
   const fetchChats = async () => {
     try {
       const res = await fetch("http://localhost:4000/chat/list", {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
       setChatList(data);
@@ -45,20 +46,22 @@ export default function Chatbot() {
     }
   };
 
-  /* ================= SAVE ================= */
+  /* ================= SAVE CHAT ================= */
   const saveChat = async (updatedMessages) => {
     try {
       await fetch("http://localhost:4000/chat/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ 
-          chatId, 
+        body: JSON.stringify({
+          chatId,
           messages: updatedMessages,
-          title: updatedMessages[0]?.text?.substring(0, 30) + "..."
-        })
+          title:
+            updatedMessages[1]?.text?.substring(0, 40) ||
+            "New Conversation",
+        }),
       });
       fetchChats();
     } catch (error) {
@@ -66,36 +69,31 @@ export default function Chatbot() {
     }
   };
 
-  /* ================= DELETE ================= */
-  const deleteChat = async (id) => {
-    try {
-      await fetch(`http://localhost:4000/chat/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` }
-      });
-
-      await fetchChats();
-
-      if (chatId === id) {
-        newChat(); // Changed from clearChat() to newChat()
-      }
-    } catch (error) {
-      console.error("Failed to delete chat:", error);
-    }
-  };
-
-  /* ================= LOAD ================= */
+  /* ================= LOAD CHAT ================= */
   const loadChat = async (id) => {
     try {
       const res = await fetch(`http://localhost:4000/chat/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-
       setChatId(id);
       setMessages(data.messages);
     } catch (error) {
       console.error("Failed to load chat:", error);
+    }
+  };
+
+  /* ================= DELETE CHAT ================= */
+  const deleteChat = async (id) => {
+    try {
+      await fetch(`http://localhost:4000/chat/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      fetchChats();
+      if (chatId === id) newChat();
+    } catch (error) {
+      console.error("Failed to delete chat:", error);
     }
   };
 
@@ -106,13 +104,13 @@ export default function Chatbot() {
       {
         id: 1,
         text: "Hello! I'm your Legal AI Assistant. How can I help you with IPC/BNS legal analysis today?",
-        sender: "bot",
-        timestamp: new Date()
-      }
+        sender: "assistant",
+        timestamp: new Date(),
+      },
     ]);
   };
 
-  /* ================= SEND ================= */
+  /* ================= SEND MESSAGE ================= */
   const handleSend = async (e) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
@@ -121,252 +119,295 @@ export default function Chatbot() {
       id: Date.now(),
       text: inputValue,
       sender: "user",
-      timestamp: new Date()
+      timestamp: new Date(),
     };
 
-    const updated = [...messages, userMsg];
-    setMessages(updated);
+    const updatedMessages = [...messages, userMsg];
+    setMessages(updatedMessages);
     setInputValue("");
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const botMsg = {
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/analyze-case",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            case_description: userMsg.text,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      const assistantMsg = {
         id: Date.now() + 1,
-        text: getLegalResponse(inputValue),
-        sender: "bot",
-        timestamp: new Date()
+        text: data.analysis || "⚠️ No response from AI service.",
+        sender: "assistant",
+        timestamp: new Date(),
       };
 
-      const finalMessages = [...updated, botMsg];
+      const finalMessages = [...updatedMessages, assistantMsg];
       setMessages(finalMessages);
-      setIsTyping(false);
       saveChat(finalMessages);
-    }, 1500);
-  };
+    } catch (error) {
+      console.error("AI Error:", error);
 
-  /* ================= LEGAL RESPONSES ================= */
-  const getLegalResponse = (query) => {
-    const responses = [
-      `Based on your query about "${query.substring(0, 30)}...", I've analyzed the relevant legal provisions. Under IPC Section 302/304 and corresponding BNS Section 101/102, this appears to involve culpable homicide.`,
-      `For "${query.substring(0, 30)}...", I can identify potential charges under IPC Section 378 (Theft) and BNS Section 303 (Theft). The comparative analysis shows similar punishment structures.`,
-      `Analyzing your case... This description suggests possible offenses under IPC Section 420 (Cheating) and BNS Section 318 (Cheating). Would you like me to elaborate?`,
-      `Based on the facts presented, this may involve criminal breach of trust under IPC Section 405 and BNS Section 316. The punishment structure differs in fine amounts.`,
-      `I've processed your query. The IPC Section 323 (Voluntarily causing hurt) and BNS Section 115 apply here. Would you like a detailed comparative analysis?`
-    ];
-    return responses[Math.floor(Math.random() * responses.length)];
-  };
-
-  /* ================= FILE UPLOAD ================= */
-  const uploadFile = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const userMessage = {
-      id: Date.now(),
-      text: `📄 Uploaded document: ${file.name}`,
-      sender: "user",
-      timestamp: new Date()
-    };
-
-    setMessages(prev => [...prev, userMessage]);
-    
-    // Simulate processing
-    setIsTyping(true);
-    setTimeout(() => {
-      const botMessage = {
+      const errorMsg = {
         id: Date.now() + 1,
-        text: `Document "${file.name}" received. I've analyzed the content and found relevant legal provisions. Would you like me to extract specific sections?`,
-        sender: "bot",
-        timestamp: new Date()
+        text: "⚠️ AI service unavailable. Please try again.",
+        sender: "assistant",
+        timestamp: new Date(),
       };
-      setMessages(prev => [...prev, botMessage]);
-      setIsTyping(false);
-      saveChat([...messages, userMessage, botMessage]);
-    }, 2000);
+
+      setMessages([...updatedMessages, errorMsg]);
+    }
+
+    setIsTyping(false);
   };
 
-  /* ================= RENDER ================= */
+  /* ================= TIME FORMAT ================= */
+  const formatTimestamp = (date) => {
+    const d = new Date(date);
+    const now = new Date();
+    const diff = now - d;
+
+    if (diff < 60000) return "Just now";
+    if (diff < 3600000)
+      return `${Math.floor(diff / 60000)}m ago`;
+    if (diff < 86400000)
+      return `${Math.floor(diff / 3600000)}h ago`;
+    return d.toLocaleDateString();
+  };
+
+  /* ================= UI ================= */
   return (
     <Layout>
-      <div className="chatbot-page">
-        <div className="chatbot-container">
-          
-          {/* Header */}
-          <div className="chatbot-header">
-            <h1>
-              <span className="shimmer-text">⚖️ Legal AI Assistant</span>
-            </h1>
-            <p>AI-powered legal analysis for IPC and BNS provisions</p>
-          </div>
+      <div className="chatbot-professional">
+        <div
+          className={`chatbot-layout ${
+            !isSidebarOpen ? "sidebar-collapsed" : ""
+          }`}
+        >
 
-          <div className="chatbot-main">
-
-            {/* ===== LEFT PANEL - CHATS & CONTROLS ===== */}
-            <div className="chat-sidebar">
-              
-              {/* New Chat Button - Prominent at top */}
-              <div className="sidebar-section new-chat-section">
-                <button className="new-chat-btn" onClick={newChat}>
-                  <span className="new-chat-icon">➕</span>
-                  <span className="new-chat-text">Start New Chat</span>
-                </button>
+          {/* ===== SIDEBAR ===== */}
+          <aside className="chat-sidebar-modern">
+            <div className="sidebar-header">
+              <div className="brand-container">
+                <span className="brand-icon">⚖️</span>
+                <span className="brand-name">LEX AI Legal</span>
               </div>
-              
-              {/* Previous Chats */}
-              <div className="sidebar-section">
-                <h3>
-                  <span className="section-icon">📋</span>
-                  Previous Chats
-                </h3>
-                <div className="chat-list">
-                  {chatList.length === 0 ? (
-                    <div className="empty-state">
-                      <span className="empty-icon">💬</span>
-                      <p>No saved chats</p>
-                      <span className="empty-hint">Start a new conversation</span>
-                    </div>
-                  ) : (
-                    chatList.map(chat => (
-                      <div key={chat.chatId} className="chat-item">
-                        <button
-                          className={`chat-item-btn ${chatId === chat.chatId ? 'active' : ''}`}
-                          onClick={() => loadChat(chat.chatId)}
-                        >
-                          <span className="chat-icon">🧠</span>
-                          <span className="chat-title-text">{chat.title || "Untitled Chat"}</span>
-                        </button>
-                        <button
-                          className="chat-delete-btn"
-                          onClick={() => deleteChat(chat.chatId)}
-                          aria-label="Delete chat"
-                        >
-                          🗑️
-                        </button>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
-
-              {/* Document Upload */}
-              <div className="sidebar-section">
-                <h3>
-                  <span className="section-icon">📁</span>
-                  Document Analysis
-                </h3>
-                <button className="upload-btn" onClick={uploadFile}>
-                  <span className="btn-icon">📎</span>
-                  Upload Document
-                </button>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  style={{ display: "none" }}
-                  accept=".pdf,.doc,.docx,.txt"
-                  onChange={handleFileUpload}
-                />
-                <p className="upload-hint">
-                  Supports PDF, DOC, DOCX, TXT
-                </p>
-              </div>
-
-              {/* Tips */}
-              <div className="sidebar-section tips-section">
-                <h3>
-                  <span className="section-icon">💡</span>
-                  Legal Tips
-                </h3>
-                <ul className="tips-list">
-                  <li>Ask about specific IPC/BNS sections</li>
-                  <li>Describe case facts for prediction</li>
-                  <li>Request comparative analysis</li>
-                  <li>Upload documents for review</li>
-                </ul>
-              </div>
+              <button
+                className="sidebar-toggle"
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              >
+                {isSidebarOpen ? "◀" : "▶"}
+              </button>
             </div>
 
-            {/* ===== RIGHT PANEL - CHAT INTERFACE ===== */}
-            <div className="chat-interface">
-              
-              {/* Chat Header with New Chat Option */}
-              <div className="chat-interface-header">
-                <div className="chat-info">
-                  <span className="chat-status-dot"></span>
-                  <span className="chat-status">Active Session</span>
-                </div>
-                <button className="chat-new-btn" onClick={newChat}>
-                  <span className="new-icon">➕</span>
-                  New
-                </button>
+            <div className="sidebar-actions">
+              <button className="new-chat-button" onClick={newChat}>
+                <span className="button-icon">+</span>
+                <span>New chat</span>
+              </button>
+            </div>
+
+            <div className="sidebar-section">
+              <div className="section-header">
+                <span className="section-title">
+                  Recent conversations
+                </span>
+                <span className="section-count">
+                  {chatList.length}
+                </span>
               </div>
 
-              {/* Messages */}
-              <div className="messages-container">
-                <div className="messages-wrapper">
-                  {messages.map((msg) => (
-                    <div key={msg.id} className={`message-item ${msg.sender}`}>
-                      <div className="message-avatar">
-                        {msg.sender === "bot" ? "⚖️" : "👤"}
+              <div className="chat-history-list">
+                {chatList.map((chat) => (
+                  <div key={chat.chatId} className="history-item">
+                    <button
+                      className={`history-button ${
+                        chatId === chat.chatId ? "active" : ""
+                      }`}
+                      onClick={() => loadChat(chat.chatId)}
+                    >
+                      <span className="history-icon">🧠</span>
+                      <div className="history-content">
+                        <span className="history-title">
+                          {chat.title || "Untitled"}
+                        </span>
                       </div>
-                      <div className="message-bubble">
-                        <div className="message-text">{msg.text}</div>
-                        <div className="message-time">
-                          {new Date(msg.timestamp).toLocaleTimeString([], { 
-                            hour: '2-digit', 
-                            minute: '2-digit' 
-                          })}
+                    </button>
+
+                    <button
+                      className="history-delete"
+                      onClick={() =>
+                        deleteChat(chat.chatId)
+                      }
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          {/* ===== MAIN CHAT AREA ===== */}
+          <main className="chat-main-area">
+
+            <div className="messages-container-modern">
+              <div className="messages-scroll">
+
+                {messages.map((msg) => (
+                  <div
+                    key={msg.id}
+                    className={`message-row ${msg.sender}`}
+                  >
+                    {msg.sender === "assistant" ? (
+                      <>
+                        <div className="message-avatar-wrapper">
+                          <div className="assistant-avatar">
+                            <span className="avatar-icon">
+                              ⚖️
+                            </span>
+                          </div>
                         </div>
+
+                        <div className="message-content-wrapper">
+                          <div className="message-sender-info">
+                            <span className="sender-name">
+                              Lex AI Legal
+                            </span>
+                            <span className="message-timestamp">
+                              {formatTimestamp(
+                                msg.timestamp
+                              )}
+                            </span>
+                          </div>
+
+                          <div className="message-bubble assistant-bubble">
+                            <div className="message-text">
+                              {msg.text
+                                .split("\n")
+                                .map((line, i) => (
+                                  <p key={i}>{line}</p>
+                                ))}
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="message-content-wrapper user-wrapper">
+                          <div className="message-sender-info user-info">
+                            <span className="message-timestamp">
+                              {formatTimestamp(
+                                msg.timestamp
+                              )}
+                            </span>
+                            <span className="sender-name user-name">
+                              You
+                            </span>
+                          </div>
+
+                          <div className="message-bubble user-bubble">
+                            <div className="message-text">
+                              <p>{msg.text}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="message-avatar-wrapper user-avatar-wrapper">
+                          <div className="user-avatar">
+                            <span className="avatar-icon">
+                              👤
+                            </span>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ))}
+
+                {isTyping && (
+                  <div className="message-row assistant">
+                    <div className="message-avatar-wrapper">
+                      <div className="assistant-avatar">
+                        <span className="avatar-icon">
+                          ⚖️
+                        </span>
                       </div>
                     </div>
-                  ))}
-                  
-                  {isTyping && (
-                    <div className="message-item bot">
-                      <div className="message-avatar">⚖️</div>
-                      <div className="typing-indicator">
+
+                    <div className="message-content-wrapper">
+                      <div className="message-sender-info">
+                        <span className="sender-name">
+                          Lex AI Legal
+                        </span>
+                      </div>
+
+                      <div className="typing-indicator-modern">
                         <span></span>
                         <span></span>
                         <span></span>
                       </div>
                     </div>
-                  )}
-                  
-                  <div ref={messagesEndRef} />
-                </div>
-              </div>
+                  </div>
+                )}
 
-              {/* Input */}
-              <form className="chat-input-form" onSubmit={handleSend}>
-                <input
-                  type="text"
-                  className="chat-input-field"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Describe your case or ask about IPC/BNS sections..."
-                />
-                <button 
-                  type="submit" 
-                  className="chat-send-btn"
-                  disabled={!inputValue.trim() || isTyping}
-                >
-                  <span className="send-icon">→</span>
-                  Send
-                </button>
-              </form>
-
-              {/* Footer */}
-              <div className="chat-footer">
-                <p className="disclaimer">
-                  ⚖️ AI-generated legal information. Consult a qualified professional for official advice.
-                </p>
+                <div ref={messagesEndRef} />
               </div>
             </div>
-          </div>
+
+            {/* ===== INPUT AREA ===== */}
+            <div className="input-area-modern">
+              <form
+                onSubmit={handleSend}
+                className="input-form-modern"
+              >
+                <div className="input-wrapper">
+                  <textarea
+                    className="chat-textarea"
+                    value={inputValue}
+                    onChange={(e) =>
+                      setInputValue(e.target.value)
+                    }
+                    placeholder="Message Lex AI Legal..."
+                    rows={1}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "Enter" &&
+                        !e.shiftKey
+                      ) {
+                        e.preventDefault();
+                        handleSend(e);
+                      }
+                    }}
+                  />
+
+                  <div className="input-actions">
+                    <button
+                      type="submit"
+                      className="send-button"
+                      disabled={
+                        !inputValue.trim() || isTyping
+                      }
+                    >
+                      <span className="send-arrow">
+                        →
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </main>
         </div>
       </div>
     </Layout>
