@@ -1,217 +1,25 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useEffect, useRef } from "react";
 import Layout from "./Layout";
 import "./Home.css";
 
 export default function Home() {
-  // ===== STATE - MINIMIZED UPDATES =====
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const [activeThread, setActiveThread] = useState(null);
-  
-  // Chat state - isolated updates
-  const [chatState, setChatState] = useState({
-    activeCase: 0,
-    retrievalStep: 0,
-    queryText: "",
-    isTyping: false
-  });
-
-  // ===== REFS - ALL CLEANUP =====
-  const heroRef = useRef(null);
   const observerRef = useRef(null);
-  const cursorRef = useRef(null);
-  const typingTimeoutRef = useRef(null);
-  const stepTimeoutsRef = useRef([]);
-  const rafRef = useRef(null);
-  const mountedRef = useRef(true);
 
-  // ===== STATIC ASSETS - NEVER CHANGE =====
-  const queries = useMemo(() => [
-    "What is the punishment for theft under BNS?",
-    "Difference between IPC 378 and BNS 303?",
-    "Quantum of punishment for repeat offenders",
-    "Bail conditions under new criminal laws"
-  ], []);
-
-  const pipelineStages = useMemo(() => [
-    { id: 1, name: "Query Parse", icon: "🔍", time: "15ms" },
-    { id: 2, name: "Vector Search", icon: "⚡", time: "45ms" },
-    { id: 3, name: "Context Window", icon: "🧠", time: "30ms" },
-    { id: 4, name: "Legal Reason", icon: "⚖️", time: "120ms" }
-  ], []);
-
-  const legalThreads = useMemo(() => [
-    { id: "criminal", title: "Criminal Law", codes: ["IPC", "BNS", "CrPC", "BNSS"], volume: "2.4M" },
-    { id: "civil", title: "Civil Procedure", codes: ["CPC", "Limitation"], volume: "1.8M" },
-    { id: "constitutional", title: "Constitutional", codes: ["COI", "Writs"], volume: "950K" },
-    { id: "corporate", title: "Corporate Law", codes: ["Companies", "IBC"], volume: "1.2M" }
-  ], []);
-
-  const metrics = useMemo(() => [
-    { label: "Recall@10", value: "94.7", bar: 94.7 },
-    { label: "Precision@5", value: "89.2", bar: 89.2 },
-    { label: "NDCG@10", value: "91.8", bar: 91.8 },
-    { label: "Section Map", value: "99.2", bar: 99.2 }
-  ], []);
-
-  // SVG Images - Completely static strings
-  const ragImages = {
-    query: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23000000'/%3E%3Ccircle cx='120' cy='150' r='40' fill='%23D4AF37' opacity='0.2'/%3E%3Ccircle cx='200' cy='150' r='50' fill='%23D4AF37' opacity='0.3'/%3E%3Ccircle cx='280' cy='150' r='40' fill='%23D4AF37' opacity='0.2'/%3E%3Ctext x='160' y='160' fill='%23D4AF37' font-family='monospace' font-size='14'%3EIPC 378%3C/text%3E%3Ctext x='40' y='250' fill='%23ffffff' font-family='monospace' font-size='12'%3Etheft%3C/text%3E%3Ctext x='300' y='250' fill='%23ffffff' font-family='monospace' font-size='12'%3Eoffense%3C/text%3E%3C/svg%3E",
-    retrieval: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23000000'/%3E%3Cpath d='M50,150 L350,150' stroke='%23D4AF37' stroke-width='1' opacity='0.3'/%3E%3Ccircle cx='80' cy='150' r='6' fill='%23D4AF37'/%3E%3Ccircle cx='150' cy='150' r='6' fill='%23D4AF37'/%3E%3Ccircle cx='220' cy='150' r='6' fill='%23D4AF37'/%3E%3Ccircle cx='290' cy='150' r='6' fill='%23D4AF37'/%3E%3Ctext x='70' y='100' fill='%23D4AF37' font-family='monospace' font-size='12'%3EBNS 303%3C/text%3E%3Ctext x='140' y='200' fill='%23D4AF37' font-family='monospace' font-size='12'%3EIPC 378%3C/text%3E%3Ctext x='210' y='80' fill='%23D4AF37' font-family='monospace' font-size='12'%3ECrPC 436%3C/text%3E%3Ctext x='280' y='180' fill='%23D4AF37' font-family='monospace' font-size='12'%3EBNS 305%3C/text%3E%3C/svg%3E",
-    context: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23000000'/%3E%3Crect x='100' y='100' width='200' height='120' fill='none' stroke='%23D4AF37' stroke-width='1'/%3E%3Cline x1='100' y1='130' x2='300' y2='130' stroke='%23D4AF37' stroke-width='1' opacity='0.3'/%3E%3Ctext x='120' y='120' fill='%23D4AF37' font-family='monospace' font-size='10'%3EIPC 378%3C/text%3E%3Ctext x='120' y='150' fill='%23ffffff' font-family='monospace' font-size='10'%3ETheft definition...%3C/text%3E%3Ctext x='120' y='180' fill='%23ffffff' font-family='monospace' font-size='10'%3EPunishment: 3yrs%3C/text%3E%3C/svg%3E",
-    reasoning: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23000000'/%3E%3Cpath d='M80,150 L150,80 L220,150 L290,80' stroke='%23D4AF37' stroke-width='2' fill='none'/%3E%3Ccircle cx='80' cy='150' r='4' fill='%23D4AF37'/%3E%3Ccircle cx='150' cy='80' r='4' fill='%23D4AF37'/%3E%3Ccircle cx='220' cy='150' r='4' fill='%23D4AF37'/%3E%3Ccircle cx='290' cy='80' r='4' fill='%23D4AF37'/%3E%3Ctext x='60' y='190' fill='%23ffffff' font-family='monospace' font-size='10'%3EIPC 378 → BNS 303%3C/text%3E%3C/svg%3E"
-  };
-
-  // Retrieved sections - Static
-  const retrievedSections = [
-    { code: "BNS 303", description: "Theft • Punishment up to 3 years", score: "0.98" },
-    { code: "IPC 378", description: "Theft definition • Mapped to BNS 303", score: "0.95" },
-    { code: "BNS 305", description: "Aggravated theft • Punishment up to 7 years", score: "0.87" }
-  ];
-
-  // ===== CURSOR - RAF OPTIMIZED WITH EMOJI =====
-  useEffect(() => {
-    mountedRef.current = true;
-    
-    // Hide default cursor
-    document.body.style.cursor = 'none';
-    
-    const updateCursor = (e) => {
-      if (!mountedRef.current) return;
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      
-      rafRef.current = requestAnimationFrame(() => {
-        if (!mountedRef.current) return;
-        setCursorPos({ x: e.clientX, y: e.clientY });
-        if (cursorRef.current) {
-          cursorRef.current.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 22}px)`;
-        }
-      });
-    };
-
-    const handleMouseLeave = () => {
-      if (cursorRef.current) {
-        cursorRef.current.style.opacity = '0';
-      }
-    };
-
-    const handleMouseEnter = () => {
-      if (cursorRef.current) {
-        cursorRef.current.style.opacity = '1';
-      }
-    };
-
-    window.addEventListener('mousemove', updateCursor, { passive: true });
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseenter', handleMouseEnter);
-    
-    return () => {
-      mountedRef.current = false;
-      document.body.style.cursor = 'default';
-      window.removeEventListener('mousemove', updateCursor);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('mouseenter', handleMouseEnter);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
-  // ===== CHAT ANIMATION - ISOLATED, NO FLICKER =====
-  useEffect(() => {
-    mountedRef.current = true;
-    
-    const runChatCycle = () => {
-      if (!mountedRef.current) return;
-      
-      const currentQuery = queries[chatState.activeCase];
-      let charIndex = 0;
-      
-      // Reset state for new query
-      setChatState(prev => ({
-        ...prev,
-        queryText: "",
-        retrievalStep: 0,
-        isTyping: true
-      }));
-      
-      // Typing animation
-      const typeNextChar = () => {
-        if (!mountedRef.current) return;
-        
-        if (charIndex <= currentQuery.length) {
-          setChatState(prev => ({
-            ...prev,
-            queryText: currentQuery.substring(0, charIndex),
-            isTyping: true
-          }));
-          charIndex++;
-          typingTimeoutRef.current = setTimeout(typeNextChar, 35);
-        } else {
-          setChatState(prev => ({ ...prev, isTyping: false }));
-          
-          // Clear any existing step timeouts
-          stepTimeoutsRef.current.forEach(timeout => clearTimeout(timeout));
-          stepTimeoutsRef.current = [];
-          
-          // Schedule RAG steps
-          const steps = [
-            setTimeout(() => {
-              if (mountedRef.current) setChatState(prev => ({ ...prev, retrievalStep: 1 }));
-            }, 800),
-            setTimeout(() => {
-              if (mountedRef.current) setChatState(prev => ({ ...prev, retrievalStep: 2 }));
-            }, 1800),
-            setTimeout(() => {
-              if (mountedRef.current) setChatState(prev => ({ ...prev, retrievalStep: 3 }));
-            }, 2800),
-            setTimeout(() => {
-              if (mountedRef.current) setChatState(prev => ({ ...prev, retrievalStep: 4 }));
-            }, 3800),
-            setTimeout(() => {
-              if (mountedRef.current) {
-                setChatState(prev => ({
-                  ...prev,
-                  activeCase: (prev.activeCase + 1) % queries.length
-                }));
-              }
-            }, 7000)
-          ];
-          
-          stepTimeoutsRef.current = steps;
-        }
-      };
-      
-      typingTimeoutRef.current = setTimeout(typeNextChar, 400);
-    };
-    
-    runChatCycle();
-    
-    return () => {
-      mountedRef.current = false;
-      if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
-      stepTimeoutsRef.current.forEach(timeout => clearTimeout(timeout));
-      stepTimeoutsRef.current = [];
-    };
-  }, [chatState.activeCase, queries]);
-
-  // ===== INTERSECTION OBSERVER - RAF OPTIMIZED =====
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            requestAnimationFrame(() => {
-              if (entry.target) {
-                entry.target.classList.add('revealed');
-              }
-            });
+            entry.target.classList.add('revealed');
           }
         });
       },
-      { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
     );
 
     const elements = document.querySelectorAll('.reveal');
     elements.forEach(el => observerRef.current?.observe(el));
-    
+
     return () => {
       if (observerRef.current) {
         observerRef.current.disconnect();
@@ -219,323 +27,579 @@ export default function Home() {
     };
   }, []);
 
-  // ===== HANDLERS =====
-  const handleThreadHover = useCallback((id) => {
-    setActiveThread(id);
-  }, []);
-
-  const handleThreadLeave = useCallback(() => {
-    setActiveThread(null);
-  }, []);
-
   return (
     <Layout>
       <div className="legal-rag-home">
         
-        {/* ===== CURSOR - ⚖️ EMOJI ===== */}
-        <div 
-          ref={cursorRef}
-          className="custom-cursor"
-          style={{
-            position: 'fixed',
-            left: 0,
-            top: 0,
-            fontSize: '32px',
-            lineHeight: 1,
-            pointerEvents: 'none',
-            zIndex: 99999,
-            transform: `translate(${cursorPos.x - 18}px, ${cursorPos.y - 22}px)`,
-            opacity: cursorPos.x ? 1 : 0,
-            willChange: 'transform',
-            transition: 'opacity 0.2s ease',
-            filter: 'drop-shadow(0 0 10px rgba(212,175,55,0.5))',
-            textShadow: '0 0 12px rgba(212,175,55,0.4)'
-          }}
-        >
-          ⚖️
-        </div>
-        
-        {/* Optional: Add subtle glow trail */}
-        <div 
-          className="cursor-trail"
-          style={{
-            position: 'fixed',
-            left: 0,
-            top: 0,
-            width: '48px',
-            height: '48px',
-            background: 'radial-gradient(circle, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0) 70%)',
-            borderRadius: '50%',
-            pointerEvents: 'none',
-            zIndex: 99998,
-            transform: `translate(${cursorPos.x - 24}px, ${cursorPos.y - 24}px)`,
-            opacity: cursorPos.x ? 0.6 : 0,
-            willChange: 'transform',
-            transition: 'opacity 0.2s ease'
-          }}
-        />
-
-        {/* ===== GRID OVERLAY ===== */}
-        <div className="grid-overlay" />
-
-        {/* ===== HERO - STATIC ===== */}
-        <section className="hero-section" ref={heroRef}>
+        {/* ===== HERO ===== */}
+        <section className="hero-section">
           <div className="container">
             <div className="hero-content reveal">
               <div className="status-badge">
-                <span className="status-dot" />
-                <span>LEX AI Legal RAG • v1.0</span>
+                <span className="status-dot"></span>
+                <span>Research Project • Active Development</span>
               </div>
               
               <h1 className="hero-title">
-                <span className="title-line">Retrieve. Reason.</span>
-                <span className="title-line gold">Respond.</span>
+                <span className="title-line">BNS legal research</span>
+                <span className="title-line accent">with semantic search</span>
               </h1>
               
               <p className="hero-description">
-                Legal assistant powered by retrieval-augmented generation. 
-                Search 18.4M case documents, statutes, and precedents in milliseconds.
+                A retrieval-augmented generation system for Bharatiya Nyaya Sanhita. 
+                Query in natural language and get relevant sections with IPC mappings 
+                and contextual explanations.
               </p>
               
               <div className="hero-actions">
-                <button className="btn-gold">
-                  <span>Try Legal Assistant →</span>
-                  <div className="btn-glow" />
-                </button>
-                <button className="btn-outline">
-                  <span>View API</span>
-                </button>
+                <a href="/chatbot" className="btn-primary">
+                  Try Demo
+                </a>
+                <a href="#about" className="btn-secondary">
+                  Learn More
+                </a>
               </div>
-
-              <div className="trust-strip">
-                <span>Trusted by Supreme Court</span>
-                <span className="dot">•</span>
-                <span>High Courts</span>
-                <span className="dot">•</span>
-                <span>Top 50 Law Firms</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="hero-abstract">
-            <div className="abstract-shape shape-1" />
-            <div className="abstract-shape shape-2" />
-            <div className="abstract-shape shape-3" />
-          </div>
-        </section>
-
-        {/* ===== CHAT - ISOLATED RENDER ===== */}
-        <section className="chat-section">
-          <div className="chat-container">
-            <div className="chat-header">
-              <div className="chat-header-left">
-                <span className="chat-icon">⚖️</span>
-                <span className="chat-title">Legal Assistant • Real-time RAG</span>
-              </div>
-              <div className="chat-status">
-                <span className="status-indicator" />
-                <span>18.4M documents indexed</span>
-              </div>
-            </div>
-            
-            <div className="chat-conversation">
-              {/* Query Message */}
-              <div className="message-row user">
-                <div className="message-avatar">U</div>
-                <div className="message-bubble">
-                  <div className="message-sender">You</div>
-                  <div className="message-text">
-                    {chatState.queryText}
-                    {chatState.isTyping && <span className="cursor-blink">|</span>}
-                  </div>
-                </div>
-              </div>
-
-              {/* RAG Pipeline */}
-              {chatState.retrievalStep > 0 && (
-                <div className="message-row system">
-                  <div className="message-avatar">⚙️</div>
-                  <div className="message-bubble pipeline">
-                    <div className="message-sender">RAG Pipeline</div>
-                    <div className="pipeline-stages">
-                      {pipelineStages.map((stage, index) => (
-                        <div 
-                          key={stage.id}
-                          className={`pipeline-stage ${
-                            index + 1 <= chatState.retrievalStep ? 'active' : ''
-                          } ${index + 1 < chatState.retrievalStep ? 'completed' : ''}`}
-                        >
-                          <span className="stage-icon">{stage.icon}</span>
-                          <span className="stage-name">{stage.name}</span>
-                          <span className="stage-time">{stage.time}</span>
-                          {index < pipelineStages.length - 1 && (
-                            <span className="stage-connector">→</span>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
               
-              {/* Retrieved Sections */}
-              {chatState.retrievalStep >= 3 && (
-                <div className="message-row assistant">
-                  <div className="message-avatar">AI</div>
-                  <div className="message-bubble">
-                    <div className="message-sender">DeepSeek Legal</div>
-                    <div className="retrieved-chips">
-                      {retrievedSections.map((section, idx) => (
-                        <span key={idx} className="chip">
-                          <span className="chip-code">{section.code}</span>
-                          <span className="chip-score">{section.score}</span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-              
-              {/* Final Response */}
-              {chatState.retrievalStep >= 4 && (
-                <div className="message-row assistant">
-                  <div className="message-avatar">AI</div>
-                  <div className="message-bubble response">
-                    <div className="message-sender">Legal Reasoning</div>
-                    <div className="response-text">
-                      Under the Bharatiya Nyaya Sanhita, theft is defined in Section 303, which corresponds to IPC Section 378. The punishment for theft under BNS 303 is imprisonment up to 3 years or fine, or both. For repeat offenders, Section 305 provides enhanced punishment up to 7 years.
-                    </div>
-                    <div className="response-footer">
-                      <span>Based on 3 retrieved sections</span>
-                      <span className="confidence">94.2% confidence</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            
-            <div className="chat-input-area">
-              <span className="input-prompt">→</span>
-              <span className="input-placeholder">Ask a legal question...</span>
-              <span className="input-shortcut">/</span>
+              <p className="hero-note">
+                Research prototype • Not for legal advice
+              </p>
             </div>
           </div>
         </section>
 
-        {/* ===== PIPELINE FLOW - STATIC IMAGES ===== */}
-        <section className="pipeline-section">
+        {/* ===== HOW IT WORKS ===== */}
+        <section className="how-it-works-section">
           <div className="container">
-            <div className="section-header reveal">
-              <span className="section-badge">RETRIEVAL-AUGMENTED GENERATION</span>
-              <h2>How legal RAG works</h2>
-              <p>Multi-stage retrieval with neural reranking and legal reasoning</p>
+            <div className="section-intro reveal">
+              <div className="section-label">How it Works</div>
+              <h2>
+                Simple <span className="accent">RAG pipeline</span>
+              </h2>
+              <p>
+                Four-step process to retrieve and reason over legal sections
+              </p>
             </div>
 
             <div className="pipeline-flow">
-              {Object.entries(ragImages).map(([key, src], index) => (
-                <div key={key} className="flow-node reveal">
-                  <div className="flow-visual">
-                    <img 
-                      src={src} 
-                      alt={key}
-                      className="flow-svg"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className="flow-glow" />
-                  </div>
-                  <div className="flow-meta">
-                    <span className="flow-icon">{pipelineStages[index].icon}</span>
-                    <span className="flow-title">{pipelineStages[index].name}</span>
-                    <span className="flow-time">{pipelineStages[index].time}</span>
-                  </div>
-                  {index < 3 && <div className="flow-arrow">→</div>}
+              <div className="flow-step reveal">
+                <div className="step-marker">
+                  <div className="step-number">1</div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ===== THREADS TIMELINE ===== */}
-        <section className="threads-section">
-          <div className="container">
-            <div className="section-header reveal">
-              <span className="section-badge">SPECIALIZED KNOWLEDGE BASES</span>
-              <h2>Embeded  <span className="gold">400+</span> legal sections</h2>
-              <p>Domain-specific retrieval with continuous learning</p>
-            </div>
-
-            <div className="threads-timeline">
-              {legalThreads.map((thread, index) => (
-                <div 
-                  key={thread.id} 
-                  className={`thread-item reveal ${activeThread === thread.id ? 'active' : ''}`}
-                  onMouseEnter={() => handleThreadHover(thread.id)}
-                  onMouseLeave={handleThreadLeave}
-                >
-                  <div className="thread-marker">
-                    <span className="thread-dot" />
-                    <span className="thread-line" />
-                  </div>
-                  <div className="thread-content">
-                    <div className="thread-header">
-                      <h3>{thread.title}</h3>
-                      <span className="thread-volume">{thread.volume}</span>
-                    </div>
-                    <div className="thread-codes">
-                      {thread.codes.map(code => (
-                        <span key={code} className="code-tag">{code}</span>
-                      ))}
-                    </div>
-                    <div className="thread-stats">
-                      <span>Indexed precedents</span>
-                      <span className="thread-arrow">→</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ===== METRICS ===== */}
-        <section className="metrics-section">
-          <div className="container">
-            <div className="metrics-grid">
-              <div className="metrics-left reveal">
-                <span className="section-badge">BENCHMARKS</span>
-                <h2>State-of-the-art retrieval accuracy</h2>
-                <div className="metric-chain">
-                  {metrics.map((metric, idx) => (
-                    <div key={metric.label} className="chain-link">
-                      <div className="chain-header">
-                        <span className="chain-label">{metric.label}</span>
-                        <span className="chain-value">{metric.value}%</span>
-                      </div>
-                      <div className="chain-bar">
-                        <div 
-                          className="chain-progress" 
-                          style={{ width: `${metric.bar}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+                <div className="step-content">
+                  <h3>User Query</h3>
+                  <p>
+                    You input a legal query in natural language. For example: "What is the 
+                    punishment for theft under BNS?" or "Find sections related to criminal 
+                    intimidation."
+                  </p>
                 </div>
               </div>
-              
-              <div className="metrics-right reveal">
-                <div className="stats-cluster">
-                  <div className="stat-sphere">
-                    <span className="sphere-number">18.4M</span>
-                    <span className="sphere-label">Documents</span>
+
+              <div className="flow-step reveal">
+                <div className="step-marker">
+                  <div className="step-number">2</div>
+                </div>
+                <div className="step-content">
+                  <h3>Semantic Search</h3>
+                  <p>
+                    The system converts your query into embeddings and searches the BNS 
+                    knowledge base for semantically similar sections. Retrieves the top-k 
+                    most relevant sections based on similarity scores.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flow-step reveal">
+                <div className="step-marker">
+                  <div className="step-number">3</div>
+                </div>
+                <div className="step-content">
+                  <h3>LLM Processing</h3>
+                  <p>
+                    Retrieved sections are passed to a language model which identifies the 
+                    most relevant provisions for your specific query and filters out less 
+                    relevant results.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flow-step reveal">
+                <div className="step-marker">
+                  <div className="step-number">4</div>
+                </div>
+                <div className="step-content">
+                  <h3>Response Generation</h3>
+                  <p>
+                    The LLM generates a clear explanation with the relevant BNS sections, 
+                    corresponding IPC mappings, legal reasoning, and contextual information 
+                    to answer your query.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== KNOWLEDGE BASE ===== */}
+        {/* ===== KNOWLEDGE BASE ===== */}
+<section className="knowledge-base-section">
+  <div className="container">
+    <div className="section-intro reveal">
+      <div className="section-label">Knowledge Base</div>
+      <h2>
+        What's <span className="accent">included</span>
+      </h2>
+      <p>
+        Comprehensive coverage of BNS with ongoing expansions
+      </p>
+    </div>
+
+    <div className="knowledge-content">
+      <div className="knowledge-list">
+        
+        {/* BNS SECTIONS */}
+        <div className="knowledge-item reveal">
+          <div className="knowledge-sidebar">
+            <div className="knowledge-status-badge">
+              <span className="status-indicator-dot"></span>
+              Available
+            </div>
+            <span className="knowledge-icon-large">📚</span>
+          </div>
+          
+          <div className="knowledge-main">
+            <h3>Bharatiya Nyaya Sanhita Sections</h3>
+            <p className="knowledge-summary">
+              Complete statutory text of all BNS sections organized by chapters and 
+              offense categories. Each section includes the official provision text, 
+              explanations, illustrations, and exceptions where applicable.
+            </p>
+
+            <div className="knowledge-stats">
+              <div className="stat-item">
+                <span className="stat-number">358</span>
+                <span className="stat-text">Total sections indexed</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">20</span>
+                <span className="stat-text">Chapters covering offenses</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">100%</span>
+                <span className="stat-text">Coverage of BNS 2023</span>
+              </div>
+            </div>
+
+            <div className="knowledge-features">
+              <h4>What's Included</h4>
+              <div className="feature-list">
+                <div className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  <span className="feature-text">
+                    <strong>Full statutory text</strong> for every section with official 
+                    numbering and subsections
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  <span className="feature-text">
+                    <strong>Section explanations</strong> and clarifications provided in 
+                    the statute where applicable
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  <span className="feature-text">
+                    <strong>Statutory illustrations</strong> and examples demonstrating 
+                    application of provisions
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  <span className="feature-text">
+                    <strong>Exception clauses</strong> and provisos that modify or limit 
+                    the main provision
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  <span className="feature-text">
+                    <strong>Punishment details</strong> including imprisonment terms, fines, 
+                    and cognizability status
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  <span className="feature-text">
+                    <strong>Chapter organization</strong> from general principles to 
+                    specific offenses
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="knowledge-examples">
+              <h5>Example Sections</h5>
+              <div className="example-list">
+                <div className="example-item">BNS 303 - Punishment for theft</div>
+                <div className="example-item">BNS 351 - Criminal breach of trust</div>
+                <div className="example-item">BNS 103 - Murder</div>
+                <div className="example-item">BNS 115 - Voluntarily causing hurt</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* IPC MAPPING */}
+        <div className="knowledge-item reveal">
+          <div className="knowledge-sidebar">
+            <div className="knowledge-status-badge">
+              <span className="status-indicator-dot"></span>
+              Available
+            </div>
+            <span className="knowledge-icon-large">🔗</span>
+          </div>
+          
+          <div className="knowledge-main">
+            <h3>IPC to BNS Section Mapping</h3>
+            <p className="knowledge-summary">
+              Comprehensive bidirectional mapping between Indian Penal Code sections 
+              and their corresponding Bharatiya Nyaya Sanhita provisions. Helps navigate 
+              the transition from the old to new criminal code.
+            </p>
+
+            <div className="knowledge-stats">
+              <div className="stat-item">
+                <span className="stat-number">500+</span>
+                <span className="stat-text">IPC sections mapped</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">358</span>
+                <span className="stat-text">BNS provisions linked</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">Both</span>
+                <span className="stat-text">Directions supported</span>
+              </div>
+            </div>
+
+            <div className="knowledge-features">
+              <h4>Mapping Features</h4>
+              <div className="feature-list">
+                <div className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  <span className="feature-text">
+                    <strong>Bidirectional lookup</strong> - search by IPC section to find 
+                    BNS equivalent or vice versa
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  <span className="feature-text">
+                    <strong>Change tracking</strong> - identifies what was modified, added, 
+                    or removed in BNS
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  <span className="feature-text">
+                    <strong>Structural changes</strong> - notes when sections were split, 
+                    merged, or reorganized
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  <span className="feature-text">
+                    <strong>New offenses</strong> - highlights provisions introduced in BNS 
+                    with no IPC predecessor
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  <span className="feature-text">
+                    <strong>Deleted sections</strong> - shows IPC sections not carried 
+                    forward to BNS
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="knowledge-examples">
+              <h5>Example Mappings</h5>
+              <div className="example-list">
+                <div className="example-item">IPC 378 ↔ BNS 303 (Theft)</div>
+                <div className="example-item">IPC 420 ↔ BNS 318 (Cheating)</div>
+                <div className="example-item">IPC 302 ↔ BNS 103 (Murder)</div>
+                <div className="example-item">IPC 379 ↔ BNS 303(1) (Theft punishment)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CASE SUMMARIES */}
+        <div className="knowledge-item reveal">
+          <div className="knowledge-sidebar">
+            <div className="knowledge-status-badge coming-soon">
+              <span className="status-indicator-dot"></span>
+              In Progress
+            </div>
+            <span className="knowledge-icon-large">⚖️</span>
+          </div>
+          
+          <div className="knowledge-main">
+            <h3>Case Law Summaries</h3>
+            <p className="knowledge-summary">
+              Curated summaries of Supreme Court and High Court judgments relevant to 
+              BNS provisions. Provides judicial interpretation and application context 
+              for statutory sections.
+            </p>
+
+            <div className="knowledge-stats">
+              <div className="stat-item">
+                <span className="stat-number">—</span>
+                <span className="stat-text">Cases being added</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">SC+HC</span>
+                <span className="stat-text">Court coverage</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">Link</span>
+                <span className="stat-text">To relevant sections</span>
+              </div>
+            </div>
+
+            <div className="knowledge-features">
+              <h4>Planned Coverage</h4>
+              <div className="feature-list">
+                <div className="feature-item">
+                  <span className="feature-icon">○</span>
+                  <span className="feature-text">
+                    <strong>Landmark judgments</strong> from Supreme Court establishing 
+                    legal principles
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">○</span>
+                  <span className="feature-text">
+                    <strong>Case summaries</strong> with key facts, legal issues, and 
+                    holdings extracted
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">○</span>
+                  <span className="feature-text">
+                    <strong>Section-wise linking</strong> - cases tagged to specific BNS/IPC 
+                    provisions discussed
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">○</span>
+                  <span className="feature-text">
+                    <strong>Legal principles</strong> - ratio decidendi and key 
+                    interpretations highlighted
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">○</span>
+                  <span className="feature-text">
+                    <strong>Precedent relevance</strong> - assessment of which IPC precedents 
+                    apply to BNS
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="coming-soon-note">
+              <p>
+                Currently being compiled and structured for integration. Initial focus on 
+                Supreme Court landmark cases for commonly queried offenses like theft, 
+                cheating, criminal breach of trust, and violent crimes.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* PRECEDENT ANALYSIS */}
+        <div className="knowledge-item reveal">
+          <div className="knowledge-sidebar">
+            <div className="knowledge-status-badge coming-soon">
+              <span className="status-indicator-dot"></span>
+              Planned
+            </div>
+            <span className="knowledge-icon-large">📊</span>
+          </div>
+          
+          <div className="knowledge-main">
+            <h3>Precedent & Sentencing Analysis</h3>
+            <p className="knowledge-summary">
+              Analysis of judicial trends including sentencing patterns, bail considerations, 
+              and how courts have interpreted specific provisions over time. Provides practical 
+              guidance beyond statutory text.
+            </p>
+
+            <div className="knowledge-stats">
+              <div className="stat-item">
+                <span className="stat-number">—</span>
+                <span className="stat-text">Future release</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">Multi</span>
+                <span className="stat-text">Analysis types</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">Data</span>
+                <span className="stat-text">Driven insights</span>
+              </div>
+            </div>
+
+            <div className="knowledge-features">
+              <h4>Future Features</h4>
+              <div className="feature-list">
+                <div className="feature-item">
+                  <span className="feature-icon">○</span>
+                  <span className="feature-text">
+                    <strong>Sentencing patterns</strong> - typical ranges and aggravating/
+                    mitigating factors considered
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">○</span>
+                  <span className="feature-text">
+                    <strong>Bail jurisprudence</strong> - when bail is typically granted or 
+                    denied for offense types
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">○</span>
+                  <span className="feature-text">
+                    <strong>Essential ingredients</strong> - what prosecution must prove for 
+                    each offense category
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">○</span>
+                  <span className="feature-text">
+                    <strong>Defenses and exceptions</strong> - common legal defenses raised 
+                    and their success rates
+                  </span>
+                </div>
+                <div className="feature-item">
+                  <span className="feature-icon">○</span>
+                  <span className="feature-text">
+                    <strong>Interpretation trends</strong> - how judicial approach to certain 
+                    provisions has evolved
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="coming-soon-note">
+              <p>
+                Planned for future development after case law database reaches sufficient 
+                size. Will require significant data collection and analysis infrastructure.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+        {/* ===== MAPPING ===== */}
+        <section className="mapping-section">
+          <div className="container">
+            <div className="section-intro reveal">
+              <div className="section-label">Section Mapping</div>
+              <h2>
+                IPC to BNS <span className="accent">transition</span>
+              </h2>
+              <p>
+                Navigate between old and new criminal codes seamlessly
+              </p>
+            </div>
+
+            <div className="mapping-content">
+              <div className="mapping-visual reveal">
+                <div className="mapping-example">
+                  <div className="code-box">
+                    <div className="code-label">Indian Penal Code</div>
+                    <div className="code-number">IPC 378</div>
                   </div>
-                  <div className="stat-sphere">
-                    <span className="sphere-number">1M</span>
-                    <span className="sphere-label">Token context</span>
+                  <div className="mapping-arrow">↕</div>
+                  <div className="code-box">
+                    <div className="code-label">Bharatiya Nyaya Sanhita</div>
+                    <div className="code-number">BNS 303</div>
                   </div>
-                  <div className="stat-sphere">
-                    <span className="sphere-number">99.99%</span>
-                    <span className="sphere-label">Uptime</span>
+                </div>
+              </div>
+
+              <div className="mapping-details reveal">
+                <h3>Automatic Mapping</h3>
+                <div className="mapping-features">
+                  <div className="mapping-feature">
+                    <span className="mapping-feature-text">
+                      Query using familiar IPC section numbers and get corresponding 
+                      BNS provisions
+                    </span>
+                  </div>
+                  <div className="mapping-feature">
+                    <span className="mapping-feature-text">
+                      Understand what changed between IPC and BNS for each offense
+                    </span>
+                  </div>
+                  <div className="mapping-feature">
+                    <span className="mapping-feature-text">
+                      Navigate bidirectionally between old and new code sections
+                    </span>
+                  </div>
+                  <div className="mapping-feature">
+                    <span className="mapping-feature-text">
+                      Identify new offenses introduced in BNS with no IPC equivalent
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== ABOUT ===== */}
+        <section className="about-section">
+          <div className="container">
+            <div className="section-intro reveal">
+              <div className="section-label">About</div>
+              <h2>
+                Research <span className="accent">prototype</span>
+              </h2>
+            </div>
+
+            <div className="about-content reveal">
+              <p className="about-text">
+                This is a research project exploring retrieval-augmented generation for legal 
+                information retrieval. The system uses semantic search to find relevant BNS 
+                sections based on natural language queries, then uses a language model to 
+                provide contextual explanations and reasoning.
+              </p>
+
+              <div className="tech-stack">
+                <h4>Technical Approach</h4>
+                <div className="tech-list">
+                  <div className="tech-item">
+                    RAG (Retrieval-Augmented Generation) architecture
+                  </div>
+                  <div className="tech-item">
+                    Semantic search using embedding models for section retrieval
+                  </div>
+                  <div className="tech-item">
+                    LLM-based filtering and response generation
+                  </div>
+                  <div className="tech-item">
+                    Knowledge base of BNS sections with IPC mappings
+                  </div>
+                  <div className="tech-item">
+                    Ongoing integration of case summaries and precedents
                   </div>
                 </div>
               </div>
@@ -547,21 +611,15 @@ export default function Home() {
         <section className="cta-section">
           <div className="container">
             <div className="cta-content reveal">
-              <h2>Build with the most accurate<br />legal retrieval system</h2>
-              <p>Get API access to our RAG pipeline trained on Indian legal documents</p>
+              <h2>Try the system</h2>
+              <p>
+                Explore BNS sections through natural language queries and see 
+                how RAG can assist with legal research.
+              </p>
               <div className="cta-actions">
-                <button className="btn-gold btn-large">
-                  <span>Start retrieving →</span>
-                </button>
-                <button className="btn-outline btn-large">
-                  <span>Read documentation</span>
-                </button>
-              </div>
-              <div className="cta-features">
-                <span>✓ 18.4M document index</span>
-                <span>✓ 1M token context</span>
-                <span>✓ 99.99% uptime</span>
-                <span>✓ Section mapping</span>
+                <a href="#demo" className="btn-primary">
+                  Access Demo
+                </a>
               </div>
             </div>
           </div>
@@ -572,19 +630,16 @@ export default function Home() {
           <div className="container">
             <div className="footer-content">
               <div className="footer-brand">
-                <span className="footer-logo">DEEPSEEK LEGAL</span>
-                <span className="footer-tag">Retrieval-Augmented Legal Intelligence</span>
+                <div className="footer-logo">BNS_RAG</div>
+                <div className="footer-tag">Legal Research Prototype</div>
               </div>
               <div className="footer-links">
-                <a href="#">RAG Pipeline</a>
-                <a href="#">Section Mapper</a>
-                <a href="#">API</a>
-                <a href="#">Docs</a>
+                <a href="#demo">Demo</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
               </div>
               <div className="footer-meta">
-                <span>© 2026 Lex AI</span>
-                <span className="divider">•</span>
-                <span>18.4M indexed</span>
+                <span>© 2026</span>
               </div>
             </div>
           </div>
