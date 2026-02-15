@@ -225,6 +225,7 @@ app.delete("/chat/:chatId", auth, async (req, res) => {
 
 /* ================= AI INTEGRATION ================= */
 
+
 app.post("/api/analyze-case", async (req, res) => {
   try {
     const { case_description } = req.body;

@@ -10,3 +10,11 @@ node_modules/
 # Logs
 logs
 *.log
+
+# model weights
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+ai-service/legal_rag/venv/
