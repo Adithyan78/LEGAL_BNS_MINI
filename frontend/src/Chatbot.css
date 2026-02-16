@@ -1269,3 +1269,78 @@
     transition-duration: 0.01ms !important;
   }
 }
+/* ================= LEGAL RESPONSE CARDS ================= */
+
+.lex-legal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lex-legal-card {
+  background: #0f0f0f;
+  border: 1px solid rgba(212,175,55,0.25);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.lex-legal-card-header {
+  padding: 12px 16px;
+  font-weight: 600;
+  color: #D4AF37;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(212,175,55,0.05);
+}
+
+.lex-legal-card-body {
+  padding: 14px;
+}
+
+.lex-legal-block {
+  margin-bottom: 12px;
+}
+
+.lex-block-title {
+  font-weight: 600;
+  color: #f5d97a;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lex-block-title.clickable {
+  cursor: pointer;
+}
+
+.lex-block-content {
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.lex-legal-block.danger {
+  border-left: 3px solid #ff4d4d;
+  padding-left: 10px;
+}
+
+.lex-conclusion-card {
+  border: 1px solid #D4AF37;
+  border-radius: 12px;
+}
+
+.lex-conclusion-header {
+  padding: 12px 16px;
+  font-weight: bold;
+  color: #D4AF37;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lex-conclusion-body {
+  padding: 14px;
+  white-space: pre-wrap;
+  color: rgba(255,255,255,0.9);
+}

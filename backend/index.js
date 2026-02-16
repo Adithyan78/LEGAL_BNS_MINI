@@ -244,7 +244,7 @@ app.post("/api/analyze-case", async (req, res) => {
         case_description: case_description,
       },
       {
-        timeout: 60000, // 60 sec timeout for RAG
+        timeout: 120000, // 120 sec timeout for RAG
       }
     );
 
@@ -263,6 +263,53 @@ app.post("/api/analyze-case", async (req, res) => {
     });
   }
 });
+
+app.post("/api/analyze-case-stream", async (req, res) => {
+  try {
+    const { case_description } = req.body;
+
+    if (!case_description) {
+      return res.status(400).send("Case description is required");
+    }
+
+    // Set headers for streaming
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.setHeader("Transfer-Encoding", "chunked");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+
+    // Call FastAPI streaming endpoint
+    const response = await axios.post(
+      "http://localhost:8000/analyze-stream", // FastAPI streaming endpoint
+      {
+        case_description: case_description,
+      },
+      {
+        responseType: "stream", // IMPORTANT: enables streaming
+        timeout: 0, // no timeout for streaming
+      }
+    );
+
+    // Forward chunks to frontend
+    response.data.on("data", (chunk) => {
+      res.write(chunk.toString());
+    });
+
+    response.data.on("end", () => {
+      res.end();
+    });
+
+    response.data.on("error", (err) => {
+      console.error("Stream error:", err);
+      res.end();
+    });
+
+  } catch (error) {
+    console.error("Streaming API Error:", error.message);
+    res.status(500).end("Streaming failed");
+  }
+});
+
 
 /* ================= START ================= */
 

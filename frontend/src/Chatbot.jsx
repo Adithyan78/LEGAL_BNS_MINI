@@ -329,7 +329,7 @@ export default function Chatbot() {
   };
 
   // Choose which send handler to use
-  const handleSend = handleSendWithStreaming; // Use simulated streaming by default
+  const handleSend = handleSendWithRealStreaming; // Use simulated streaming by default
 
   /* ================= HANDLE PROMPT CLICK ================= */
   const handlePromptClick = (prompt) => {
@@ -425,6 +425,224 @@ export default function Chatbot() {
       });
     });
   };
+  /* ================= LEGAL RESPONSE RENDERER ================= */
+
+const LegalResponseRenderer = ({ text }) => {
+
+  const [expandedSections, setExpandedSections] = useState({});
+  const [expandedBlocks, setExpandedBlocks] = useState({});
+
+  const toggleSection = (index) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
+
+  const toggleBlock = (key) => {
+    setExpandedBlocks(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
+
+  const parseSections = (text) => {
+
+    const lines = text.split("\n");
+
+    const sections = [];
+    let current = null;
+    let conclusion = null;
+    let mode = null;
+
+    lines.forEach(line => {
+
+      if (line.includes("APPLICABLE SECTION")) {
+
+        if (current) sections.push(current);
+
+        current = {
+          title: line,
+          definition: "",
+          ingredients: "",
+          reasoning: "",
+          punishment: ""
+        };
+
+        mode = null;
+      }
+
+      else if (line.includes("SECTION DEFINITION"))
+        mode = "definition";
+
+      else if (line.includes("ESSENTIAL INGREDIENTS"))
+        mode = "ingredients";
+
+      else if (line.includes("LEGAL REASONING"))
+        mode = "reasoning";
+
+      else if (line.includes("PRESCRIBED PUNISHMENT"))
+        mode = "punishment";
+
+      else if (line.includes("FINAL LEGAL CONCLUSION")) {
+
+        if (current) sections.push(current);
+
+        conclusion = {
+          title: line,
+          content: ""
+        };
+
+        mode = "conclusion";
+      }
+
+      else {
+
+        if (mode === "conclusion")
+          conclusion.content += line + "\n";
+
+        else if (current && mode)
+          current[mode] += line + "\n";
+      }
+
+    });
+
+    if (current) sections.push(current);
+    if (conclusion) sections.push(conclusion);
+
+    return sections;
+  };
+
+  const sections = parseSections(text);
+
+  return (
+    <div className="lex-legal-container">
+
+      {sections.map((section, index) => {
+
+        if (section.content !== undefined) {
+
+          const expanded = expandedSections[index] ?? true;
+
+          return (
+            <div className="lex-conclusion-card" key={index}>
+
+              <div
+                className="lex-conclusion-header"
+                onClick={() => toggleSection(index)}
+              >
+                {section.title}
+                <span>{expanded ? "▾" : "▸"}</span>
+              </div>
+
+              {expanded && (
+                <div className="lex-conclusion-body">
+                  {section.content}
+                </div>
+              )}
+
+            </div>
+          );
+        }
+
+        const expanded = expandedSections[index] ?? true;
+
+        return (
+          <div className="lex-legal-card" key={index}>
+
+            <div
+              className="lex-legal-card-header"
+              onClick={() => toggleSection(index)}
+            >
+              {section.title}
+              <span>{expanded ? "▾" : "▸"}</span>
+            </div>
+
+            {expanded && (
+              <div className="lex-legal-card-body">
+
+                {section.definition && (
+                  <div className="lex-legal-block">
+                    <div className="lex-block-title">
+                      Section Definition
+                    </div>
+                    <div className="lex-block-content">
+                      {section.definition}
+                    </div>
+                  </div>
+                )}
+
+                {section.ingredients && (
+                  <div className="lex-legal-block">
+                    <div className="lex-block-title">
+                      Essential Ingredients
+                    </div>
+                    <div className="lex-block-content">
+                      {section.ingredients}
+                    </div>
+                  </div>
+                )}
+
+                {section.reasoning && (
+                  <div className="lex-legal-block">
+
+                    <div
+                      className="lex-block-title clickable"
+                      onClick={() => toggleBlock(index + "-reason")}
+                    >
+                      Legal Reasoning
+                      <span>
+                        {(expandedBlocks[index + "-reason"] ?? false)
+                          ? "▾"
+                          : "▸"}
+                      </span>
+                    </div>
+
+                    {(expandedBlocks[index + "-reason"] ?? false) && (
+                      <div className="lex-block-content">
+                        {section.reasoning}
+                      </div>
+                    )}
+
+                  </div>
+                )}
+
+                {section.punishment && (
+                  <div className="lex-legal-block danger">
+
+                    <div
+                      className="lex-block-title clickable"
+                      onClick={() => toggleBlock(index + "-punish")}
+                    >
+                      Punishment
+                      <span>
+                        {(expandedBlocks[index + "-punish"] ?? false)
+                          ? "▾"
+                          : "▸"}
+                      </span>
+                    </div>
+
+                    {(expandedBlocks[index + "-punish"] ?? false) && (
+                      <div className="lex-block-content">
+                        {section.punishment}
+                      </div>
+                    )}
+
+                  </div>
+                )}
+
+              </div>
+            )}
+
+          </div>
+        );
+
+      })}
+
+    </div>
+  );
+};
+
 
   /* ================= UI ================= */
   return (
@@ -619,7 +837,8 @@ export default function Chatbot() {
 
                               <div className="lex-message-bubble lex-assistant-bubble">
                                 <div className="lex-message-text">
-                                  {renderMessageText(msg.text)}
+                                  <LegalResponseRenderer text={msg.text} />
+
                                 </div>
                               </div>
 
