@@ -19,6 +19,8 @@ export default function Chatbot() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const thinkingIntervalRef = useRef(null);
+  const containerRef = useRef(null);
+  const shouldAutoScroll = useRef(true);
 
   /* ================= THINKING MESSAGES ================= */
   const thinkingMessages = [
@@ -59,11 +61,48 @@ export default function Chatbot() {
       prompt: "Help me draft a legal notice for...",
     },
   ];
+  // manage auto scroll
+  useEffect(() => {
+
+  const container = containerRef.current;
+
+  if (!container) return;
+
+  const handleScroll = () => {
+
+    const distanceFromBottom =
+      container.scrollHeight -
+      container.scrollTop -
+      container.clientHeight;
+
+    // ONLY auto scroll if user is fully at bottom
+    shouldAutoScroll.current = distanceFromBottom <= 5;
+
+  };
+
+  container.addEventListener("scroll", handleScroll);
+
+  return () =>
+    container.removeEventListener("scroll", handleScroll);
+
+}, []);
+
+
 
   /* ================= AUTO SCROLL ================= */
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, streamingText, thinkingMessage]);
+useEffect(() => {
+
+  const container = containerRef.current;
+
+  if (!container) return;
+
+  if (shouldAutoScroll.current) {
+
+    container.scrollTop = container.scrollHeight;
+
+  }
+
+}, [messages, streamingText, thinkingMessage]);
 
   /* ================= FETCH CHATS ================= */
   useEffect(() => {
@@ -755,8 +794,10 @@ const LegalResponseRenderer = ({ text }) => {
 
           {/* ===== MAIN CHAT AREA ===== */}
           <main className="lex-chat-main-area">
-            <div className="lex-messages-container-modern">
+            <div className="lex-messages-container-modern" ref={containerRef}>
+
               <div className="lex-messages-scroll">
+
                 {messages.length === 0 && !streamingText ? (
                   /* ===== WELCOME SCREEN ===== */
                   <div className="lex-welcome-screen">
