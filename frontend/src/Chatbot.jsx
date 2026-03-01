@@ -36,31 +36,35 @@ export default function Chatbot() {
 
   /* ================= SUGGESTED PROMPTS ================= */
   const suggestedPrompts = [
-    {
-      icon: "⚖️",
-      title: "Analyze a Legal Case",
-      description: "Get detailed IPC/BNS analysis for any legal scenario",
-      prompt: "I need help analyzing a legal case involving...",
-    },
-    {
-      icon: "📋",
-      title: "Section Explanation",
-      description: "Understand specific IPC or BNS sections",
-      prompt: "Can you explain IPC Section 420 and its implications?",
-    },
-    {
-      icon: "🔍",
-      title: "Case Law Research",
-      description: "Find relevant case laws and precedents",
-      prompt: "What are the landmark judgments related to...",
-    },
-    {
-      icon: "💼",
-      title: "Legal Documentation",
-      description: "Draft legal notices, contracts, or petitions",
-      prompt: "Help me draft a legal notice for...",
-    },
-  ];
+  {
+    icon: "⚖️",
+    title: "Analyze a Legal Case",
+    description: "Get detailed IPC/BNS analysis for any legal scenario",
+    prompt: "I need help analyzing a legal case involving...",
+    comingSoon: false,
+  },
+  {
+    icon: "📋",
+    title: "Section Explanation",
+    description: "Understand specific IPC or BNS sections",
+    prompt: "Can you explain IPC Section 420 and its implications?",
+    comingSoon: true,
+  },
+  {
+    icon: "🔍",
+    title: "Case Law Research",
+    description: "Find relevant case laws and precedents",
+    prompt: "What are the landmark judgments related to...",
+    comingSoon: true,
+  },
+  {
+    icon: "💼",
+    title: "Legal Documentation",
+    description: "Draft legal notices, contracts, or petitions",
+    prompt: "Help me draft a legal notice for...",
+    comingSoon: true,
+  },
+];
   // manage auto scroll
   useEffect(() => {
 
@@ -816,19 +820,37 @@ const LegalResponseRenderer = ({ text }) => {
                       {suggestedPrompts.map((prompt, index) => (
                         <button
                           key={index}
-                          className="lex-prompt-card"
-                          onClick={() => handlePromptClick(prompt.prompt)}
+                          className={`lex-prompt-card ${
+                            prompt.comingSoon ? "lex-coming-soon-card" : ""
+                          }`}
+                          onClick={() => {
+                            if (!prompt.comingSoon) {
+                              handlePromptClick(prompt.prompt);
+                            }
+                          }}
+                          disabled={prompt.comingSoon}
                         >
                           <div className="lex-prompt-icon">{prompt.icon}</div>
+
                           <div className="lex-prompt-content">
                             <h3 className="lex-prompt-title">
                               {prompt.title}
+
+                              {prompt.comingSoon && (
+                                <span className="lex-coming-soon-badge">
+                                  Coming Soon
+                                </span>
+                              )}
                             </h3>
+
                             <p className="lex-prompt-description">
                               {prompt.description}
                             </p>
                           </div>
-                          <div className="lex-prompt-arrow">→</div>
+
+                          {!prompt.comingSoon && (
+                            <div className="lex-prompt-arrow">→</div>
+                          )}
                         </button>
                       ))}
                     </div>

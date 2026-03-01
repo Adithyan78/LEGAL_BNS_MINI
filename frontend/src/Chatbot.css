@@ -533,6 +533,26 @@
   text-align: left;
   animation: fadeInUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+.lex-coming-soon-badge {
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #ff9800, #ff5722);
+  color: white;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.lex-coming-soon-card {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.lex-coming-soon-card:hover {
+  transform: none;
+  box-shadow: none;
+}
 
 .lex-prompt-card:nth-child(1) { animation-delay: 0.5s; }
 .lex-prompt-card:nth-child(2) { animation-delay: 0.6s; }

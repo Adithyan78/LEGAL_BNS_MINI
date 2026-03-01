@@ -10,10 +10,10 @@ print("Loading embedding model...")
 model = SentenceTransformer(MODEL_NAME, device="cpu")
 
 print("Loading FAISS index...")
-index = faiss.read_index("faiss_index_bge_large.bin")
+index = faiss.read_index("faiss_max.bin")
 
 print("Loading dataset...")
-with open("bns_ipc_map_updated.json", "r", encoding="utf-8") as f:
+with open("bns_max.json", "r", encoding="utf-8") as f:
     sections = json.load(f)
 
 # Skip first 59 to match embedding preprocessing
