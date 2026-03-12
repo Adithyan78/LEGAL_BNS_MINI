@@ -106,6 +106,10 @@ def analyze_case_stream(case_description, top_k=5):
 
         for i, r in enumerate(results, 1):
             print(f"\n{i}. {r['section_id']} (Similarity: {r['score']:.4f})")
+            if r.get('ipc_equivalent'):
+                print(f"   IPC Equivalent : Section {r['ipc_equivalent']}")
+            if r.get('key_differences'):
+                print(f"   Key Differences: {r['key_differences']}")
 
 
         # STEP 3: Legal Analysis

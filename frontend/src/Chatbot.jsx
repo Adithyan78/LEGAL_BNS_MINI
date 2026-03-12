@@ -490,71 +490,55 @@ const LegalResponseRenderer = ({ text }) => {
   };
 
   const parseSections = (text) => {
+  const lines = text.split("\n");
+  const sections = [];
+  let current = null;
+  let conclusion = null;
+  let mode = null;
 
-    const lines = text.split("\n");
+  lines.forEach(line => {
+    if (line.includes("APPLICABLE SECTION")) {
+      if (current) sections.push(current);
+      current = {
+        title: line,
+        definition: "",
+        ingredients: "",
+        reasoning: "",
+        punishment: "",
+        ipc_changes: ""        // 👈 new
+      };
+      mode = null;
+    }
+    else if (line.includes("SECTION DEFINITION"))       mode = "definition";
+    else if (line.includes("ESSENTIAL INGREDIENTS"))    mode = "ingredients";
+    else if (line.includes("LEGAL REASONING"))          mode = "reasoning";
+    else if (line.includes("PRESCRIBED PUNISHMENT"))    mode = "punishment";
+    else if (line.includes("IPC EQUIVALENT"))           mode = "ipc_changes";  // 👈 new
+    else if (line.includes("FINAL LEGAL CONCLUSION")) {
+      if (current) sections.push(current);
+      conclusion = { title: line, content: "" };
+      mode = "conclusion";
+    }
+    else {
+      if (mode === "conclusion")       conclusion.content += line + "\n";
+      else if (current && mode)        current[mode] += line + "\n";
+    }
+  });
 
-    const sections = [];
-    let current = null;
-    let conclusion = null;
-    let mode = null;
+  if (current) sections.push(current);
+  if (conclusion) sections.push(conclusion);
+  
+  // ✅ Deduplicate by title — keep first occurrence only
+  const seen = new Set();
+  const deduped = sections.filter(section => {
+    const key = section.title?.trim();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 
-    lines.forEach(line => {
-
-      if (line.includes("APPLICABLE SECTION")) {
-
-        if (current) sections.push(current);
-
-        current = {
-          title: line,
-          definition: "",
-          ingredients: "",
-          reasoning: "",
-          punishment: ""
-        };
-
-        mode = null;
-      }
-
-      else if (line.includes("SECTION DEFINITION"))
-        mode = "definition";
-
-      else if (line.includes("ESSENTIAL INGREDIENTS"))
-        mode = "ingredients";
-
-      else if (line.includes("LEGAL REASONING"))
-        mode = "reasoning";
-
-      else if (line.includes("PRESCRIBED PUNISHMENT"))
-        mode = "punishment";
-
-      else if (line.includes("FINAL LEGAL CONCLUSION")) {
-
-        if (current) sections.push(current);
-
-        conclusion = {
-          title: line,
-          content: ""
-        };
-
-        mode = "conclusion";
-      }
-
-      else {
-
-        if (mode === "conclusion")
-          conclusion.content += line + "\n";
-
-        else if (current && mode)
-          current[mode] += line + "\n";
-      }
-
-    });
-
-    if (current) sections.push(current);
-    if (conclusion) sections.push(conclusion);
-
-    return sections;
-  };
+  return deduped;
+};
 
   const sections = parseSections(text);
 
@@ -673,6 +657,25 @@ const LegalResponseRenderer = ({ text }) => {
 
                   </div>
                 )}
+                {section.ipc_changes && (
+                <div className="lex-legal-block ipc-changes">
+                  <div
+                    className="lex-block-title clickable"
+                    onClick={() => toggleBlock(index + "-ipc")}
+                  >
+                    <span>🔄 IPC Equivalent & Changes</span>
+                    <span>
+                      {(expandedBlocks[index + "-ipc"] ?? true) ? "▾" : "▸"}
+                    </span>
+                  </div>
+
+                  {(expandedBlocks[index + "-ipc"] ?? true) && (
+                    <div className="lex-block-content">
+                      {section.ipc_changes}
+                    </div>
+                  )}
+                </div>
+              )}
 
               </div>
             )}

@@ -211,9 +211,13 @@ def generate_legal_analysis_stream(user_query, retrieved_sections, max_tokens=90
 
     context_text = ""
     for i, sec in enumerate(retrieved_sections, 1):
+        ipc_line = f"IPC Equivalent: Section {sec['ipc_equivalent']}" if sec.get('ipc_equivalent') else "IPC Equivalent: N/A"
+        diff_line = f"Key Differences from IPC: {sec['key_differences']}" if sec.get('key_differences') else "Key Differences from IPC: N/A"
         context_text += f"""
 Retrieved Section #{i}
 Section ID: {sec['section_id']}
+{ipc_line}
+{diff_line}
 Content: {sec['content']}
 {'='*60}
 """
@@ -239,6 +243,13 @@ Your primary job is to FILTER OUT sections that don't actually apply. The retrie
 
 For each candidate section, rigorously verify:
 
+✓ STRICT RETRIEVAL BOUNDARY:
+  - You MUST ONLY analyze sections that are explicitly provided in the CANDIDATE BNS SECTIONS above
+  - NEVER reference, assume, or fabricate content for any section not present in the retrieved context
+  - If a section's full text is not in the retrieved content, DO NOT include it in your analysis
+  - If NO retrieved section fully applies, explicitly state: "No retrieved section sufficiently satisfies all ingredients for this case."
+  - Do NOT use your general legal knowledge to fill gaps in retrieved section text
+
 ✓ ACTUS REUS (Criminal Act):
   - Is there a clear, completed physical act described in the case?
   - Mere thoughts, plans, or intentions WITHOUT an overt act do NOT suffice
@@ -259,6 +270,11 @@ For each candidate section, rigorously verify:
   - Vague or incomplete facts cannot support a definitive legal conclusion
   - When in doubt about applicability, EXCLUDE the section
 
+✓ SECTION NUMBERING:
+  - Always use BNS section numbers when referencing applicable sections
+  - Never quote IPC section numbers in the punishment or analysis blocks
+  - IPC section numbers must ONLY appear inside the IPC EQUIVALENT & CHANGES block
+
 **PHASE 2: ANALYSIS FORMAT**
 
 For ONLY the sections that pass all filters above, provide:
@@ -268,7 +284,7 @@ For ONLY the sections that pass all filters above, provide:
 **APPLICABLE SECTION: [Exact Section ID - e.g., SECTION_103]**
 
 SECTION DEFINITION:
-[Provide the complete section text/definition from the retrieved content]
+[Copy the exact definition ONLY from the retrieved content above. If the section text is not in the retrieved content, SKIP this section entirely - do not assume or generate the definition.]
 
 ESSENTIAL INGREDIENTS OF THIS OFFENSE:
 1. [First essential element]
@@ -284,7 +300,11 @@ LEGAL REASONING:
 [Detailed explanation of why this section applies.]
 
 PRESCRIBED PUNISHMENT:
-[State the exact penalty]
+[State the exact penalty as defined under this BNS section only. Do NOT reference IPC section numbers here.]
+
+IPC EQUIVALENT & CHANGES:
+- IPC Equivalent: [Only the IPC section number from context, e.g. "IPC Section 300"]
+- Key Differences: [What changed from IPC to BNS for this section. If no change, state "No substantive change."]
 
 ───────────────────────────────────────────────────────────
 
