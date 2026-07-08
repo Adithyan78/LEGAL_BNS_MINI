@@ -1,6 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "./Layout.css";
 
 export default function Layout({ children }) {
   const location = useLocation();
@@ -11,12 +10,12 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem("token"));
-    
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -29,106 +28,83 @@ export default function Layout({ children }) {
     navigate("/auth");
   };
 
+  const navLinks = [
+    { to: "/", label: "Home" },
+    ...(isLoggedIn ? [{ to: "/chatbot", label: "Case Analysis" }] : []),
+    ...(isLoggedIn ? [] : [{ to: "/auth", label: "Sign In" }]),
+  ];
+
   return (
     <>
-      <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
-        <div className="navbar-container">
-          <div className="navbar-left">
-            <Link to="/" className="navbar-brand">
-              <span className="brand-icon">⚖️</span>
-              <div className="brand-text-wrapper">
-                <span className="brand-text">LexAI</span>
-                <span className="brand-subtitle">Legal Intelligence</span>
-              </div>
-            </Link>
-          </div>
+      <nav className={`sticky top-0 z-50 border-b border-slate-200/80 backdrop-blur ${isScrolled ? "bg-white/95" : "bg-white/80"}`}>
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          <Link to="/" className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-amber-200 bg-amber-50 text-lg text-amber-700">
+              ⚖
+            </div>
+            <div>
+              <div className="text-lg font-semibold tracking-[0.2em] text-slate-900">LEX AI</div>
+              <div className="text-xs uppercase tracking-[0.25em] text-slate-500">BNS Research</div>
+            </div>
+          </Link>
 
-          {/* Desktop Navigation */}
-          <div className="nav-links-desktop">
-            <Link
-              to="/"
-              className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
-            >
-              <span className="nav-icon"></span>
-              Home
-            </Link>
-
+          <div className="hidden items-center gap-2 md:flex">
+            {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition ${location.pathname === link.to ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"}`}
+              >
+                {link.label}
+              </Link>
+            ))}
             {isLoggedIn && (
-              <Link
-                to="/chatbot"
-                className={`nav-link ${location.pathname === "/chatbot" ? "active" : ""}`}
+              <button
+                onClick={logout}
+                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900"
               >
-                <span className="nav-icon"></span>
-                AI Assistant
-              </Link>
-            )}
-
-            {!isLoggedIn ? (
-              <Link
-                to="/auth"
-                className={`nav-link ${location.pathname === "/auth" ? "active" : ""}`}
-              >
-                <span className="nav-icon"></span>
-                Sign In
-              </Link>
-            ) : (
-              <button className="nav-link logout-btn" onClick={logout}>
-                <span className="nav-icon"></span>
                 Sign Out
               </button>
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button 
-            className={`mobile-menu-btn ${isMobileMenuOpen ? 'active' : ''}`}
+          <button
+            className="rounded-full border border-slate-200 p-2 text-slate-700 md:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            <span className="menu-bar"></span>
-            <span className="menu-bar"></span>
-            <span className="menu-bar"></span>
+            <span className="block h-0.5 w-5 bg-current"></span>
+            <span className="mt-1 block h-0.5 w-5 bg-current"></span>
+            <span className="mt-1 block h-0.5 w-5 bg-current"></span>
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        <div className={`nav-links-mobile ${isMobileMenuOpen ? 'active' : ''}`}>
-          <Link
-            to="/"
-            className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
-          >
-            <span className="nav-icon"></span>
-            Home
-          </Link>
-
-          {isLoggedIn && (
-            <Link
-              to="/chatbot"
-              className={`nav-link ${location.pathname === "/chatbot" ? "active" : ""}`}
-            >
-              <span className="nav-icon"></span>
-              AI Assistant
-            </Link>
-          )}
-
-          {!isLoggedIn ? (
-            <Link
-              to="/auth"
-              className={`nav-link ${location.pathname === "/auth" ? "active" : ""}`}
-            >
-              <span className="nav-icon"></span>
-              Sign In
-            </Link>
-          ) : (
-            <button className="nav-link logout-btn" onClick={logout}>
-              <span className="nav-icon"></span>
-              Sign Out
-            </button>
-          )}
-        </div>
+        {isMobileMenuOpen && (
+          <div className="border-t border-slate-200 bg-white px-4 py-3 md:hidden">
+            <div className="flex flex-col gap-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`rounded-2xl px-3 py-2 text-sm font-medium ${location.pathname === link.to ? "bg-slate-900 text-white" : "text-slate-600"}`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              {isLoggedIn && (
+                <button
+                  onClick={logout}
+                  className="rounded-2xl border border-slate-200 px-3 py-2 text-left text-sm font-medium text-slate-600"
+                >
+                  Sign Out
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </nav>
 
-      <main className="main-content">{children}</main>
+      <main>{children}</main>
     </>
   );
 }

@@ -1,3 +1,4 @@
+import sys, os
 import json
 import numpy as np
 import faiss
@@ -10,10 +11,11 @@ print("Loading embedding model...")
 model = SentenceTransformer(MODEL_NAME, device="cpu")
 
 print("Loading FAISS index...")
-index = faiss.read_index("faiss_max.bin")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+index = faiss.read_index(os.path.join(BASE_DIR, "faiss_max.bin"))
 
 print("Loading dataset...")
-with open("bns_max.json", "r", encoding="utf-8") as f:
+with open(os.path.join(BASE_DIR, "bns_max.json"), "r", encoding="utf-8") as f:
     sections = json.load(f)
 
 sections = sections[59:]

@@ -1,0 +1,4 @@
+system,n_queries,hr_at_1,hr_at_3,hr_at_5,ndcg_at_1,ndcg_at_3,ndcg_at_5,mrr,avg_elapsed_s
+BM25 (keyword baseline),108,0.5833,0.7037,0.75,0.5833,0.6602,0.7286,0.646,0.0
+FAISS semantic (no reform),108,0.7037,0.8148,0.8426,0.7037,0.8137,0.8805,0.7616,0.18
+FAISS + LLM reformulation,108,0.4815,0.6944,0.7315,0.4815,0.5958,0.6369,0.5864,18.33

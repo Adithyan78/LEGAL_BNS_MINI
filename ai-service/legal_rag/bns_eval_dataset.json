@@ -1,0 +1,434 @@
+[
+  {
+    "query": "A person intentionally shoots someone with a gun intending to kill them and the victim dies. What offence has been committed?",
+    "sections": ["101", "103"]
+  },
+  {
+    "query": "Two friends get into a sudden fight and one kills the other in the heat of passion without premeditation. What law applies?",
+    "sections": ["101", "105"]
+  },
+  {
+    "query": "A driver knocked down a pedestrian while driving rashly on a public road and fled the scene without reporting to police. What section applies?",
+    "sections": ["106"]
+  },
+  {
+    "query": "A doctor was performing surgery and through gross negligence caused the patient's death. What offence is this?",
+    "sections": ["106"]
+  },
+  {
+    "query": "Someone convinced a mentally unsound person to kill himself. What is the legal provision?",
+    "sections": ["107"]
+  },
+  {
+    "query": "A person abetted another adult's suicide by constant instigation. What section of BNS applies?",
+    "sections": ["108"]
+  },
+  {
+    "query": "A man bought a gun and mixed poison in someone's food intending to murder them but the victim survived. What offence applies?",
+    "sections": ["109"]
+  },
+  {
+    "query": "Someone fired a pistol at another person under grave provocation, under circumstances where if they had killed, it would have been culpable homicide not amounting to murder. What section applies?",
+    "sections": ["110"]
+  },
+  {
+    "query": "A gang engaged in vehicle theft, extortion, and kidnapping as part of a continuing organised criminal syndicate. What BNS provision covers this?",
+    "sections": ["111"]
+  },
+  {
+    "query": "A group of members engaged in pick-pocketing and shoplifting as part of a gang. What section of BNS covers this petty organised crime?",
+    "sections": ["112"]
+  },
+  {
+    "query": "A terrorist group used explosives to destroy critical infrastructure and killed several people. Which BNS section applies?",
+    "sections": ["113"]
+  },
+  {
+    "query": "Someone deliberately poured boiling water on another person causing severe burns. What is the applicable BNS section?",
+    "sections": ["118"]
+  },
+  {
+    "query": "A police officer tortured a suspect to extract a confession. Which BNS section is violated?",
+    "sections": ["120"]
+  },
+  {
+    "query": "A person threw acid on a woman causing permanent disfigurement to her face. What BNS section applies?",
+    "sections": ["124"]
+  },
+  {
+    "query": "A man assaulted a police officer while the officer was on duty dispersing an unlawful assembly. What section applies?",
+    "sections": ["121", "132"]
+  },
+  {
+    "query": "Someone caused hurt to another person by driving an animal into them intentionally. What sections are relevant?",
+    "sections": ["115", "118"]
+  },
+  {
+    "query": "A person blocked a pathway and physically stopped someone from proceeding in a direction they had a right to go. What BNS provision covers this?",
+    "sections": ["126"]
+  },
+  {
+    "query": "A man locked a woman in a room and prevented her from leaving for three days. What offence has been committed?",
+    "sections": ["127"]
+  },
+  {
+    "query": "Someone wrongfully confined a person secretly so that no one knew of the confinement. Which section applies?",
+    "sections": ["127"]
+  },
+  {
+    "query": "A person threatened someone and forced them to do something illegal while keeping them confined. What BNS section is relevant?",
+    "sections": ["127"]
+  },
+  {
+    "query": "A person shook his fist at another person intending to make them believe they were about to be struck. Is this an assault under BNS?",
+    "sections": ["130", "131"]
+  },
+  {
+    "query": "Someone intentionally used physical force to push another person in the street, causing fear and annoyance without consent. What does BNS say about this?",
+    "sections": ["129", "131"]
+  },
+  {
+    "query": "A boy was taken out of his guardian's care without the guardian's consent. Which BNS section on kidnapping applies?",
+    "sections": ["137"]
+  },
+  {
+    "query": "A person was forcibly carried away from their home and held for ransom, with threats to kill them. What sections apply?",
+    "sections": ["140"]
+  },
+  {
+    "query": "Someone lured a child with the intent of using them for begging purposes and the child was later found begging on the streets. Which BNS section is applicable?",
+    "sections": ["139"]
+  },
+  {
+    "query": "An agent recruited several women through false promises and transported them across state borders for sexual exploitation. What section covers human trafficking?",
+    "sections": ["143"]
+  },
+  {
+    "query": "A person was sold into slavery. What BNS provision applies?",
+    "sections": ["145"]
+  },
+  {
+    "query": "Workers were forced to work against their will with no option to leave. What offence does BNS recognise?",
+    "sections": ["146"]
+  },
+  {
+    "query": "A group of people joined an insurrection against the Government of India and waged war. What section applies?",
+    "sections": ["147"]
+  },
+  {
+    "query": "A man spread propaganda online encouraging armed rebellion and separatist activities against India. What BNS provision is applicable?",
+    "sections": ["152"]
+  },
+  {
+    "query": "Someone assaulted the Governor of a State to compel him to exercise his official power in a particular way. What section applies?",
+    "sections": ["151"]
+  },
+  {
+    "query": "A person was bribed to vote for a particular candidate at an election. What election-related offence is this?",
+    "sections": ["170", "173"]
+  },
+  {
+    "query": "Someone voted in an election using another person's identity. What BNS provision covers electoral personation?",
+    "sections": ["172", "174"]
+  },
+  {
+    "query": "A political campaign published false statements about a candidate's personal character to influence voters. What BNS section applies?",
+    "sections": ["175"]
+  },
+  {
+    "query": "A person was found in possession of counterfeit currency notes knowing them to be fake. What section of BNS applies?",
+    "sections": ["180"]
+  },
+  {
+    "query": "Someone made and sold fake currency notes. Which BNS provisions are relevant?",
+    "sections": ["178", "179"]
+  },
+  {
+    "query": "A factory worker secretly made equipment to be used for counterfeiting bank notes. What section applies?",
+    "sections": ["181"]
+  },
+  {
+    "query": "Five persons assembled together using criminal force against a public servant to resist execution of a law. What is this called under BNS?",
+    "sections": ["189", "190"]
+  },
+  {
+    "query": "A group of armed men attacked property during a riot. What sections of BNS cover rioting with deadly weapons?",
+    "sections": ["191"]
+  },
+  {
+    "query": "Two people fought in a public place and disturbed public peace. What BNS section covers this affray?",
+    "sections": ["194"]
+  },
+  {
+    "query": "A person posted content online promoting hatred between two religious communities. What BNS provision is violated?",
+    "sections": ["196"]
+  },
+  {
+    "query": "A person published false information online that jeopardised national integrity and unity. What does BNS say about this?",
+    "sections": ["197"]
+  },
+  {
+    "query": "A public servant disobeyed a legal direction knowingly with the intention of causing injury to a private person. Which section applies?",
+    "sections": ["198"]
+  },
+  {
+    "query": "Someone pretended to be a police officer and tried to conduct an official act in that false capacity. What section of BNS covers this?",
+    "sections": ["204"]
+  },
+  {
+    "query": "A person wore a police uniform intending to be mistaken for a police officer. What BNS provision covers this?",
+    "sections": ["205"]
+  },
+  {
+    "query": "A person absconded in order to avoid receiving a court summons. What section applies?",
+    "sections": ["206"]
+  },
+  {
+    "query": "A witness legally bound to appear before a District Judge intentionally failed to appear. What offence is this under BNS?",
+    "sections": ["208"]
+  },
+  {
+    "query": "A person gave deliberately false information to a public servant intending to get an innocent person harassed. Which section applies?",
+    "sections": ["217"]
+  },
+  {
+    "query": "A witness took an oath and then deliberately gave false testimony in a court case. What BNS section covers perjury?",
+    "sections": ["227", "229"]
+  },
+  {
+    "query": "Someone placed stolen jewellery in another person's bag to get them falsely convicted. What section covers fabrication of false evidence?",
+    "sections": ["228", "229"]
+  },
+  {
+    "query": "A person gave false evidence in court to get someone convicted of a capital offence. What is the punishment provision?",
+    "sections": ["230"]
+  },
+  {
+    "query": "Someone threatened a witness to give false testimony in a criminal case. Which BNS section applies?",
+    "sections": ["232"]
+  },
+  {
+    "query": "A person helped hide a murder suspect knowing the person had committed the crime. What section covers harbouring an offender?",
+    "sections": ["249"]
+  },
+  {
+    "query": "Someone accepted a bribe in exchange for not reporting an offence they were aware of. What BNS section covers this?",
+    "sections": ["250"]
+  },
+  {
+    "query": "A person escaped from lawful custody after being arrested for an offence. What BNS section applies?",
+    "sections": ["262"]
+  },
+  {
+    "query": "Someone helped a friend escape from police custody. What section of BNS covers this?",
+    "sections": ["263"]
+  },
+  {
+    "query": "A person negligently threw poisonous chemicals in a residential area endangering lives. What public health provision applies?",
+    "sections": ["271", "286"]
+  },
+  {
+    "query": "A shopkeeper knowingly sold adulterated food items in the market. Which BNS sections apply?",
+    "sections": ["274", "275"]
+  },
+  {
+    "query": "A pharmacist sold adulterated medicine knowing it had been tampered with. What BNS sections apply?",
+    "sections": ["276", "277"]
+  },
+  {
+    "query": "Someone recklessly drove a motorcycle on a public road endangering lives. What section applies?",
+    "sections": ["281"]
+  },
+  {
+    "query": "A person defiled a place of worship intending to insult another community's religion. Which BNS section is relevant?",
+    "sections": ["298"]
+  },
+  {
+    "query": "Someone made deliberate and malicious remarks online insulting a religious community's beliefs. What section covers this?",
+    "sections": ["299"]
+  },
+  {
+    "query": "Someone disrupted a religious ceremony by causing noise and interrupting worship. What BNS provision applies?",
+    "sections": ["300"]
+  },
+  {
+    "query": "Someone's bike was stolen from outside his house. What BNS section covers theft?",
+    "sections": ["303", "305"]
+  },
+  {
+    "query": "A pickpocket snatched a mobile phone by suddenly grabbing it from a person's hand in a market. What is this offence under BNS?",
+    "sections": ["304", "305"]
+  },
+  {
+    "query": "A servant stole valuables from his employer while working in the house. What BNS provision applies?",
+    "sections": ["306"]
+  },
+  {
+    "query": "A man threatened a shopkeeper with a knife to hand over money and then took it. What is this offence under BNS?",
+    "sections": ["309"]
+  },
+  {
+    "query": "Five armed persons committed robbery on a highway together. What section covers dacoity?",
+    "sections": ["310"]
+  },
+  {
+    "query": "A person used a deadly weapon while committing dacoity. Which specific BNS section applies?",
+    "sections": ["311"]
+  },
+  {
+    "query": "A person misappropriated property that was found on the road and took it for personal use dishonestly. What is the relevant BNS section?",
+    "sections": ["314"]
+  },
+  {
+    "query": "An employee entrusted with company funds fraudulently used them for personal gain. What BNS section covers criminal breach of trust?",
+    "sections": ["316"]
+  },
+  {
+    "query": "Someone received stolen goods knowing they were stolen. What BNS section covers receiving stolen property?",
+    "sections": ["317"]
+  },
+  {
+    "query": "A person cheated someone by impersonating another individual and collecting money in their name. Which sections apply?",
+    "sections": ["318", "319"]
+  },
+  {
+    "query": "A builder caused damage to a neighbour's wall while doing construction negligently. What section covers mischief?",
+    "sections": ["324"]
+  },
+  {
+    "query": "Someone damaged railway tracks causing danger to the train and its passengers. What section applies?",
+    "sections": ["327"]
+  },
+  {
+    "query": "A person entered someone's home at night with tools to commit burglary. What BNS provision covers house-breaking?",
+    "sections": ["330", "331"]
+  },
+  {
+    "query": "A man forged his employer's signature on a cheque and encashed it. What BNS section covers forgery?",
+    "sections": ["336", "338"]
+  },
+  {
+    "query": "Someone created a counterfeit property mark intending to pass off goods as those of another person. What section applies?",
+    "sections": ["347"]
+  },
+  {
+    "query": "A woman received threatening messages saying she would be harmed if she didn't pay money. What section covers criminal intimidation?",
+    "sections": ["351"]
+  },
+  {
+    "query": "A man repeatedly followed a woman online and kept messaging her despite her clearly refusing contact. What offence is this?",
+    "sections": ["78"]
+  },
+  {
+    "query": "A man groped a woman in a crowded bus intending to outrage her modesty. What BNS section applies?",
+    "sections": ["74"]
+  },
+  {
+    "query": "A woman's husband harassed her for dowry and she died under suspicious circumstances within two years of marriage. What is the applicable provision?",
+    "sections": ["80"]
+  },
+  {
+    "query": "A husband subjected his wife to physical cruelty and mental harassment. What BNS section covers domestic cruelty?",
+    "sections": ["85", "86"]
+  },
+  {
+    "query": "A man married another woman without divorcing his first wife who was still alive. What BNS section applies?",
+    "sections": ["82"]
+  },
+  {
+    "query": "A man had sexual intercourse with a woman by falsely promising to marry her with no intention of doing so. What section applies?",
+    "sections": ["69"]
+  },
+  {
+    "query": "A teacher in a position of authority over a student induced her to have sexual intercourse with him by abusing his position. Which section applies?",
+    "sections": ["68"]
+  },
+  {
+    "query": "A group of men raped a woman together in furtherance of their common intention. What section covers gang rape?",
+    "sections": ["70"]
+  },
+  {
+    "query": "A journalist published the name and identity of a rape victim without authorisation. What BNS section is violated?",
+    "sections": ["72"]
+  },
+  {
+    "query": "A man installed a hidden camera in a women's changing room. What BNS provision on voyeurism applies?",
+    "sections": ["77"]
+  },
+  {
+    "query": "A woman was abducted with the intent of forcing her into marriage against her will. Which section applies?",
+    "sections": ["87"]
+  },
+  {
+    "query": "An obscene book was sold publicly in a market. What BNS provision covers circulation of obscene material?",
+    "sections": ["294"]
+  },
+  {
+    "query": "A person made obscene gestures and sang vulgar songs in a public park to the annoyance of others. What section applies?",
+    "sections": ["296"]
+  },
+  {
+    "query": "A person attempted suicide to coerce a public servant from performing official duties. What section covers this?",
+    "sections": ["226"]
+  },
+  {
+    "query": "A parent abandoned their 8-year-old child in a deserted area with the intention of permanently abandoning the child. What BNS section applies?",
+    "sections": ["93"]
+  },
+  {
+    "query": "Someone hired a child to commit an offence on their behalf. What BNS section covers this?",
+    "sections": ["95"]
+  },
+  {
+    "query": "A person induced a child to leave home knowing the child would likely be exploited sexually. What section is relevant?",
+    "sections": ["96"]
+  },
+  {
+    "query": "A child was secretly buried after birth to conceal the fact that the child had been born. What BNS section applies?",
+    "sections": ["94"]
+  },
+  {
+    "query": "A person abetted the commission of mutiny in the Indian Army. What BNS provision applies?",
+    "sections": ["159", "160"]
+  },
+  {
+    "query": "A person wore a military uniform intending to be mistaken for an army officer. What BNS section is relevant?",
+    "sections": ["168"]
+  },
+  {
+    "query": "A landlord intentionally obstructed a public servant from seizing his property during a lawful auction. What section applies?",
+    "sections": ["218", "219"]
+  },
+  {
+    "query": "A person voluntarily obstructed a government officer while the officer was discharging official duties. What BNS section is violated?",
+    "sections": ["221"]
+  },
+  {
+    "query": "A person threatened a public servant to stop performing official functions. What provision applies?",
+    "sections": ["224"]
+  },
+  {
+    "query": "A village watchman intentionally gave false information to police about a crime to mislead the investigation. Which section applies?",
+    "sections": ["212"]
+  },
+  {
+    "query": "A person refused to answer questions before a public servant when legally bound to do so. What section of BNS applies?",
+    "sections": ["214"]
+  },
+  {
+    "query": "A person destroyed a document they were legally required to produce as evidence in court. What section covers this?",
+    "sections": ["241"]
+  },
+  {
+    "query": "A judge made a corrupt order in a judicial proceeding that he knew to be contrary to law. What section applies?",
+    "sections": ["257"]
+  },
+  {
+    "query": "A public servant allowed a murder suspect to escape from custody intentionally. What BNS provision is applicable?",
+    "sections": ["259"]
+  },
+  {
+    "query": "A person used a previously used government revenue stamp to avoid paying the proper tax. What section is applicable?",
+    "sections": ["184"]
+  }
+]
