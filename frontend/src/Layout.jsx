@@ -1,6 +1,13 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+const ScalesIcon = ({ className = "w-5 h-5" }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 3v18M3 6l4.5 9M3 6h18M20.5 15l-4.5-9M7.5 15h9M3 21h18" />
+    <circle cx="12" cy="3" r="1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
 export default function Layout({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,12 +46,12 @@ export default function Layout({ children }) {
       <nav className={`sticky top-0 z-50 border-b border-slate-200/80 backdrop-blur ${isScrolled ? "bg-white/95" : "bg-white/80"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link to="/" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-amber-200 bg-amber-50 text-lg text-amber-700">
-              ⚖
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0F172A] text-white">
+              <ScalesIcon className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-lg font-semibold tracking-[0.2em] text-slate-900">LEX AI</div>
-              <div className="text-xs uppercase tracking-[0.25em] text-slate-500">BNS Research</div>
+              <div className="text-sm font-semibold tracking-wider text-[#0F172A]">LEX AI</div>
+              <div className="text-[10px] uppercase tracking-widest text-slate-500">BNS Research</div>
             </div>
           </Link>
 

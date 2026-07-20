@@ -1,26 +1,19 @@
 import { Link } from "react-router-dom";
 import Layout from "./Layout";
 
-const workflow = [
+const benefits = [
   {
-    title: "Case intake",
-    description: "Submit facts, allegations, and the issue under review in plain language.",
+    title: "Plain-language answers",
+    detail: "Get a clear explanation of which law applies — not just a section number to look up yourself.",
   },
   {
-    title: "Section retrieval",
-    description: "The system identifies the most relevant BNS provisions and their IPC equivalents.",
+    title: "Old law and new law, together",
+    detail: "See how a case would have been handled under the old code and how it's handled now.",
   },
   {
-    title: "Reasoned conclusion",
-    description: "Each result is structured with legal reasoning, ingredients, and sanctions.",
+    title: "No legal jargon required",
+    detail: "Describe what happened in your own words. LEX AI does the translating.",
   },
-];
-
-const tools = [
-  "BNS section mapping",
-  "IPC equivalent review",
-  "Structured conclusions",
-  "Mobile-friendly research",
 ];
 
 export default function HomeTailwind() {
@@ -28,84 +21,98 @@ export default function HomeTailwind() {
 
   return (
     <Layout>
-      <div className="bg-[radial-gradient(circle_at_top_left,_rgba(184,134,11,0.12),_transparent_35%),linear-gradient(135deg,_#f8fafc_0%,_#fefcf7_100%)]">
-        <section className="mx-auto flex max-w-7xl flex-col gap-10 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-            <div className="max-w-3xl space-y-6">
-              <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-sm font-medium text-amber-800">
-                <span className="h-2.5 w-2.5 rounded-full bg-amber-600"></span>
-                Legal research workflow • BNS / IPC analysis
-              </div>
+      <div className="bg-[#F7F8FA] text-[#0B1220]">
+        {/* Hero */}
+        <section className="mx-auto max-w-6xl px-6 pt-24 pb-16 sm:px-8 lg:pt-32">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-semibold tracking-wide text-[#B08D3D]">LEX AI</p>
+            <h1 className="mt-4 text-4xl font-semibold leading-[1.15] tracking-tight text-[#0B1220] sm:text-5xl">
+              Know which law applies, in plain English.
+            </h1>
+            <p className="mt-5 text-lg leading-8 text-[#5B6472]">
+              Describe what happened. LEX AI tells you which law covers it today, what it used
+              to say, and what it means for you — no legal background needed.
+            </p>
 
-              <div className="space-y-4">
-                <h1 className="text-4xl font-semibold leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
-                  Precise BNS research for lawyers, scholars, and legal teams.
-                </h1>
-                <p className="max-w-2xl text-lg leading-8 text-slate-600">
-                  LEX AI converts case facts into a structured legal analysis with relevant Bharatiya Nyaya Sanhita sections, essential ingredients, and IPC equivalents.
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link
+                to={isLoggedIn ? "/chatbot" : "/auth"}
+                className="inline-flex items-center justify-center rounded-md bg-[#0B1220] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#1B2C42]"
+              >
+                {isLoggedIn ? "Ask about your case" : "Sign in to get started"}
+              </Link>
+              <a
+                href="#example"
+                className="inline-flex items-center justify-center rounded-md border border-[#D7DBE0] px-7 py-3 text-sm font-semibold text-[#0B1220] transition hover:border-[#0B1220]"
+              >
+                See an example
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Product preview — a real-looking, plain-language result */}
+        <section id="example" className="mx-auto max-w-4xl px-6 pb-20 sm:px-8">
+          <div className="overflow-hidden rounded-xl border border-[#E3E6EA] bg-white shadow-[0_20px_60px_-30px_rgba(11,18,32,0.25)]">
+            <div className="border-b border-[#E3E6EA] bg-[#FAFBFC] px-6 py-4">
+              <p className="text-sm font-semibold text-[#0B1220]">What you'd get back</p>
+            </div>
+
+            <div className="space-y-5 px-6 py-6">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#9AA2AC]">
+                  You describe
+                </p>
+                <p className="mt-1.5 text-sm leading-6 text-[#0B1220]">
+                  "Someone convinced me to hand over money by promising to pay it back, then
+                  never did — and never intended to."
                 </p>
               </div>
 
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <Link to={isLoggedIn ? "/chatbot" : "/auth"} className="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
-                  {isLoggedIn ? "Analyze a case" : "Sign in to analyze"}
-                </Link>
-                <a href="#workflow" className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">
-                  Review the workflow
-                </a>
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-                {tools.map((tool) => (
-                  <span key={tool} className="rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 text-sm text-slate-600 shadow-sm">
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_24px_80px_-30px_rgba(15,23,42,0.35)]">
-              <div className="mb-6 flex items-center justify-between border-b border-slate-200 pb-4">
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Research summary</p>
-                  <h2 className="mt-1 text-xl font-semibold text-slate-900">What the tool provides</h2>
-                </div>
-                <div className="rounded-full bg-amber-50 px-3 py-1 text-sm font-semibold text-amber-700">For review</div>
-              </div>
-
-              <div className="space-y-4">
-                {[
-                  ["Relevant BNS provisions", "Section-specific analysis with legal reasoning and prescribed punishment."],
-                  ["Case facts mapping", "A structured view of how facts align with statutory elements."],
-                  ["IPC transitions", "Equivalent provisions and identified legislative changes."],
-                ].map(([title, detail]) => (
-                  <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                    <p className="text-sm font-semibold text-slate-900">{title}</p>
-                    <p className="mt-1 text-sm leading-6 text-slate-600">{detail}</p>
-                  </div>
-                ))}
+              <div className="border-t border-[#E3E6EA] pt-5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#9AA2AC]">
+                  LEX AI answers
+                </p>
+                <p className="mt-1.5 text-sm leading-6 text-[#0B1220]">
+                  This is covered under <span className="font-semibold">Section 318 (Cheating)</span> of
+                  the current law (BNS). Under the earlier law, the same conduct fell under IPC
+                  Section 420.
+                </p>
+                <p className="mt-2 text-sm leading-6 text-[#5B6472]">
+                  To count as cheating, there needs to be a false promise, property handed over
+                  because of it, and an intent to deceive from the start.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="workflow" className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
-            <div className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.35em] text-amber-700">Workflow</p>
-              <h2 className="mt-3 text-3xl font-semibold text-slate-900 sm:text-4xl">A structured path from facts to conclusion.</h2>
-              <p className="mt-4 text-lg leading-8 text-slate-600">The experience is designed to feel like a professional legal research desk rather than a generic chatbot interface.</p>
-            </div>
-
-            <div className="mt-10 grid gap-6 lg:grid-cols-3">
-              {workflow.map((step, index) => (
-                <div key={step.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white">0{index + 1}</div>
-                  <h3 className="mt-4 text-xl font-semibold text-slate-900">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-slate-600">{step.description}</p>
+        {/* Why LEX AI — plain-language benefits, not internal process */}
+        <section className="border-t border-[#E3E6EA] bg-white">
+          <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8">
+            <div className="grid gap-10 sm:grid-cols-3">
+              {benefits.map((item) => (
+                <div key={item.title}>
+                  <h3 className="text-base font-semibold text-[#0B1220]">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#5B6472]">{item.detail}</p>
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Closing CTA */}
+        <section className="border-t border-[#E3E6EA]">
+          <div className="mx-auto max-w-6xl px-6 py-16 text-center sm:px-8">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0B1220] sm:text-3xl">
+              Have a situation you need to understand?
+            </h2>
+            <Link
+              to={isLoggedIn ? "/chatbot" : "/auth"}
+              className="mt-6 inline-flex items-center justify-center rounded-md bg-[#0B1220] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#1B2C42]"
+            >
+              {isLoggedIn ? "Ask about your case" : "Sign in to get started"}
+            </Link>
           </div>
         </section>
       </div>

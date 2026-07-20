@@ -1,0 +1,1593 @@
+[
+  {
+    "query": "A guy shot someone on purpose meaning to kill them, and the person died. What crime did he commit?",
+    "sections": [
+      "101",
+      "103"
+    ]
+  },
+  {
+    "query": "Two friends suddenly got into a fight and one of them killed the other in the heat of the moment, no planning involved. What law covers this?",
+    "sections": [
+      "101",
+      "105"
+    ]
+  },
+  {
+    "query": "A driver was speeding on a public road, hit a pedestrian, and just drove off without telling the police. What section covers this?",
+    "sections": [
+      "106"
+    ]
+  },
+  {
+    "query": "A doctor was operating on a patient and was so careless that the patient died. What's this called under the law?",
+    "sections": [
+      "106"
+    ]
+  },
+  {
+    "query": "Someone talked a person with a mental illness into killing himself. What does the law say about this?",
+    "sections": [
+      "107"
+    ]
+  },
+  {
+    "query": "A person kept pushing an adult to end their own life until they actually did it. What section covers this?",
+    "sections": [
+      "108"
+    ]
+  },
+  {
+    "query": "A man bought a gun and also poisoned someone's food planning to kill them, but the person survived both attempts. What's he charged with?",
+    "sections": [
+      "109"
+    ]
+  },
+  {
+    "query": "Someone shot at another person after being seriously provoked - if the person had died it would've counted as a lesser killing, not murder. What section fits this?",
+    "sections": [
+      "110"
+    ]
+  },
+  {
+    "query": "A gang kept stealing cars, doing extortion, and kidnapping people as an ongoing racket. What law covers organised gangs like this?",
+    "sections": [
+      "111"
+    ]
+  },
+  {
+    "query": "A small group was doing pickpocketing and shoplifting together as a gang. What covers this kind of petty gang crime?",
+    "sections": [
+      "112"
+    ]
+  },
+  {
+    "query": "A terror outfit used bombs to blow up important infrastructure and killed people in the process. What section applies?",
+    "sections": [
+      "113"
+    ]
+  },
+  {
+    "query": "Someone poured boiling water on another person on purpose and gave them serious burns. What section covers this?",
+    "sections": [
+      "118"
+    ]
+  },
+  {
+    "query": "A cop beat up a suspect to force a confession out of him. Which section is being broken here?",
+    "sections": [
+      "120"
+    ]
+  },
+  {
+    "query": "A man threw acid on a woman's face and left her permanently disfigured. What law covers this?",
+    "sections": [
+      "124"
+    ]
+  },
+  {
+    "query": "A man hit a police officer who was on duty trying to break up an illegal gathering. What applies here?",
+    "sections": [
+      "121",
+      "132"
+    ]
+  },
+  {
+    "query": "Someone deliberately let their dog attack a person to hurt them. What sections would apply?",
+    "sections": [
+      "115",
+      "118"
+    ]
+  },
+  {
+    "query": "A guy blocked someone's path and physically stopped them from walking somewhere they had every right to go. What covers this?",
+    "sections": [
+      "126"
+    ]
+  },
+  {
+    "query": "A man locked a woman inside a room and wouldn't let her out for three days straight. What crime is this?",
+    "sections": [
+      "127"
+    ]
+  },
+  {
+    "query": "Someone secretly held a person captive in a way that nobody else even knew they were being held. What section applies?",
+    "sections": [
+      "127"
+    ]
+  },
+  {
+    "query": "A man threatened someone and made them do something illegal while keeping them locked up the whole time. What law covers this?",
+    "sections": [
+      "127"
+    ]
+  },
+  {
+    "query": "A guy raised his fist at someone like he was about to punch them, just to scare them. Does raising a fist like that count as assault under BNS?",
+    "sections": [
+      "130",
+      "131"
+    ]
+  },
+  {
+    "query": "Someone shoved another person in the street on purpose just to annoy and scare them, without touching them in a friendly way at all. What does BNS say?",
+    "sections": [
+      "129",
+      "131"
+    ]
+  },
+  {
+    "query": "A kid was taken away from his guardian's home without the guardian ever agreeing to it. Which kidnapping section fits?",
+    "sections": [
+      "137"
+    ]
+  },
+  {
+    "query": "A person was grabbed off the street, held somewhere, and the kidnappers threatened to kill him unless they got a ransom. What section applies?",
+    "sections": [
+      "140"
+    ]
+  },
+  {
+    "query": "A man lured a small kid away planning to make the kid beg on the streets, and later the kid was found begging. What section fits?",
+    "sections": [
+      "139"
+    ]
+  },
+  {
+    "query": "An agent tricked several women into travelling across states with false promises and then forced them into sexual exploitation. What covers human trafficking here?",
+    "sections": [
+      "143"
+    ]
+  },
+  {
+    "query": "Someone was literally sold off into slavery. What section deals with that?",
+    "sections": [
+      "145"
+    ]
+  },
+  {
+    "query": "Some workers were forced to keep working with zero option to quit or leave. What does BNS call this?",
+    "sections": [
+      "146"
+    ]
+  },
+  {
+    "query": "A bunch of people joined an armed uprising against the Indian government. What section covers this?",
+    "sections": [
+      "147"
+    ]
+  },
+  {
+    "query": "A man was posting online content pushing for armed rebellion and separatism against India. What law covers this?",
+    "sections": [
+      "152"
+    ]
+  },
+  {
+    "query": "Someone attacked a State Governor to force him to use his official powers a certain way. What section fits?",
+    "sections": [
+      "151"
+    ]
+  },
+  {
+    "query": "A person was paid money to vote for a specific candidate in an election. What's this election crime called?",
+    "sections": [
+      "170",
+      "173"
+    ]
+  },
+  {
+    "query": "Someone cast a vote at an election by pretending to be a different registered voter. What covers this kind of impersonation?",
+    "sections": [
+      "172",
+      "174"
+    ]
+  },
+  {
+    "query": "A campaign spread lies about a rival candidate's personal character to sway voters. What section applies?",
+    "sections": [
+      "175"
+    ]
+  },
+  {
+    "query": "A guy was caught holding fake currency notes, and he knew they were fake. What section covers this?",
+    "sections": [
+      "180"
+    ]
+  },
+  {
+    "query": "Someone was printing and selling counterfeit money. What sections cover this?",
+    "sections": [
+      "178",
+      "179"
+    ]
+  },
+  {
+    "query": "A factory worker was secretly building machines meant for making fake currency notes. What section applies?",
+    "sections": [
+      "181"
+    ]
+  },
+  {
+    "query": "Five people got together and used force against a government officer just to stop him from enforcing a law. What's this called?",
+    "sections": [
+      "189",
+      "190"
+    ]
+  },
+  {
+    "query": "A group of armed men attacked and damaged property during a riot. What sections cover rioting with weapons?",
+    "sections": [
+      "191"
+    ]
+  },
+  {
+    "query": "Two guys got into a public brawl and caused a scene that disturbed everyone around. What section covers this kind of public fight?",
+    "sections": [
+      "194"
+    ]
+  },
+  {
+    "query": "Someone posted stuff online trying to stir up hatred between two religious groups. Which section does this break?",
+    "sections": [
+      "196"
+    ]
+  },
+  {
+    "query": "A person spread fake news online that threatened the country's unity. What does BNS say about this?",
+    "sections": [
+      "197"
+    ]
+  },
+  {
+    "query": "A government officer knowingly ignored a legal order just to hurt some private citizen. What section applies?",
+    "sections": [
+      "198"
+    ]
+  },
+  {
+    "query": "Someone pretended to be a cop and tried to actually carry out police duties while faking it. What section covers this?",
+    "sections": [
+      "204"
+    ]
+  },
+  {
+    "query": "A man wore a police uniform hoping people would think he really was an officer. What covers this?",
+    "sections": [
+      "205"
+    ]
+  },
+  {
+    "query": "Someone ran away and hid just to dodge getting handed a court summons. What section applies?",
+    "sections": [
+      "206"
+    ]
+  },
+  {
+    "query": "A witness who was legally required to show up before a District Judge deliberately skipped it. What's this offence called?",
+    "sections": [
+      "208"
+    ]
+  },
+  {
+    "query": "A person lied to a police officer on purpose just to get an innocent guy harassed. Which section fits?",
+    "sections": [
+      "217"
+    ]
+  },
+  {
+    "query": "A witness swore an oath in court and then straight-up lied while testifying. What covers this kind of lying under oath?",
+    "sections": [
+      "227",
+      "229"
+    ]
+  },
+  {
+    "query": "Someone planted stolen jewellery in another person's bag just to get them wrongly convicted. What covers planting fake evidence like this?",
+    "sections": [
+      "228",
+      "229"
+    ]
+  },
+  {
+    "query": "Someone lied in court on purpose to get an innocent person sentenced to death. What's the punishment section for that?",
+    "sections": [
+      "230"
+    ]
+  },
+  {
+    "query": "A person threatened a witness to force them into lying on the stand during a criminal trial. Which section covers this?",
+    "sections": [
+      "232"
+    ]
+  },
+  {
+    "query": "Someone hid a murder suspect at their place even though they knew the guy had actually done it. What covers sheltering an offender like this?",
+    "sections": [
+      "249"
+    ]
+  },
+  {
+    "query": "A person took a bribe in exchange for staying quiet about a crime they knew had happened. What section covers this?",
+    "sections": [
+      "250"
+    ]
+  },
+  {
+    "query": "A man broke out of police custody after being arrested for a crime. What section applies?",
+    "sections": [
+      "262"
+    ]
+  },
+  {
+    "query": "Someone helped their friend escape while he was in police custody. What section covers this?",
+    "sections": [
+      "263"
+    ]
+  },
+  {
+    "query": "A guy carelessly dumped poisonous chemicals in a residential neighbourhood, putting lives at risk. What public safety section applies?",
+    "sections": [
+      "271",
+      "286"
+    ]
+  },
+  {
+    "query": "A shopkeeper knowingly sold food that had been mixed with harmful stuff. Which sections cover this?",
+    "sections": [
+      "274",
+      "275"
+    ]
+  },
+  {
+    "query": "A pharmacist sold medicine he knew had been tampered with and made harmful. What sections apply?",
+    "sections": [
+      "276",
+      "277"
+    ]
+  },
+  {
+    "query": "Someone was riding a bike recklessly on a public road, putting people's lives at risk. What section applies?",
+    "sections": [
+      "281"
+    ]
+  },
+  {
+    "query": "A man vandalised a place of worship on purpose just to insult another community's religion. Which section fits?",
+    "sections": [
+      "298"
+    ]
+  },
+  {
+    "query": "Someone posted deliberately nasty comments online insulting an entire religious community's beliefs. What covers this?",
+    "sections": [
+      "299"
+    ]
+  },
+  {
+    "query": "A person barged into a religious ceremony making noise and disrupting the prayers. What section applies?",
+    "sections": [
+      "300"
+    ]
+  },
+  {
+    "query": "Someone's bike got stolen from right outside his house. What's the theft section here?",
+    "sections": [
+      "303",
+      "305"
+    ]
+  },
+  {
+    "query": "A thief grabbed a woman's phone right out of her hand in a crowded market and ran off. What's this offence called?",
+    "sections": [
+      "304",
+      "305"
+    ]
+  },
+  {
+    "query": "A house help stole valuables from the family he worked for while inside their home. Which section covers this?",
+    "sections": [
+      "306"
+    ]
+  },
+  {
+    "query": "A guy pulled a knife on a shopkeeper, forced him to hand over the cash, and took it. What crime is this?",
+    "sections": [
+      "309"
+    ]
+  },
+  {
+    "query": "Five armed guys robbed people together on a highway. What section covers group robbery like this?",
+    "sections": [
+      "310"
+    ]
+  },
+  {
+    "query": "Someone used a deadly weapon while committing an armed group robbery. Which specific section covers that?",
+    "sections": [
+      "311"
+    ]
+  },
+  {
+    "query": "A guy found a wallet on the road and just kept it for himself instead of trying to return it. What section applies?",
+    "sections": [
+      "314"
+    ]
+  },
+  {
+    "query": "An employee who was trusted with the company's money used it for his own personal expenses instead. What covers this kind of trust betrayal?",
+    "sections": [
+      "316"
+    ]
+  },
+  {
+    "query": "Someone bought a stolen phone knowing full well it was stolen. What section covers receiving stolen goods?",
+    "sections": [
+      "317"
+    ]
+  },
+  {
+    "query": "A person pretended to be someone else and collected money in that person's name through deception. Which sections apply?",
+    "sections": [
+      "318",
+      "319"
+    ]
+  },
+  {
+    "query": "A builder carelessly damaged the neighbour's wall while doing construction work. What section covers this kind of property damage?",
+    "sections": [
+      "324"
+    ]
+  },
+  {
+    "query": "Someone damaged train tracks, putting the train and its passengers in danger. What section applies?",
+    "sections": [
+      "327"
+    ]
+  },
+  {
+    "query": "A man broke into someone's house at night carrying tools, planning to burgle the place. What covers breaking into a house like this?",
+    "sections": [
+      "330",
+      "331"
+    ]
+  },
+  {
+    "query": "A guy forged his boss's signature on a cheque and cashed it. What section covers this kind of forgery?",
+    "sections": [
+      "336",
+      "338"
+    ]
+  },
+  {
+    "query": "Someone created a fake brand mark to pass off their goods as another company's products. What section applies?",
+    "sections": [
+      "347"
+    ]
+  },
+  {
+    "query": "A woman kept getting threatening messages saying she'd be hurt if she didn't pay up. What covers this kind of threat?",
+    "sections": [
+      "351"
+    ]
+  },
+  {
+    "query": "A man kept following a woman online and messaging her nonstop even though she'd clearly told him to stop. What crime is that?",
+    "sections": [
+      "78"
+    ]
+  },
+  {
+    "query": "A man groped a woman on a crowded bus meaning to embarrass and violate her. What section applies?",
+    "sections": [
+      "74"
+    ]
+  },
+  {
+    "query": "A woman was harassed for dowry by her husband's family and died under strange circumstances within two years of getting married. Which provision fits this?",
+    "sections": [
+      "80"
+    ]
+  },
+  {
+    "query": "A husband kept physically hurting and mentally torturing his wife. What section covers this kind of domestic cruelty?",
+    "sections": [
+      "85",
+      "86"
+    ]
+  },
+  {
+    "query": "A man married a second woman while his first wife was still alive and he'd never divorced her. What section covers this?",
+    "sections": [
+      "82"
+    ]
+  },
+  {
+    "query": "A man slept with a woman after promising to marry her, when he never actually planned to. What section covers this?",
+    "sections": [
+      "69"
+    ]
+  },
+  {
+    "query": "A teacher used his authority over a student to pressure her into having sex with him. Which section applies?",
+    "sections": [
+      "68"
+    ]
+  },
+  {
+    "query": "A group of men raped a woman together, all acting with the same intention. What covers gang rape here?",
+    "sections": [
+      "70"
+    ]
+  },
+  {
+    "query": "A journalist published a rape victim's name and photo without permission. Which section did he break?",
+    "sections": [
+      "72"
+    ]
+  },
+  {
+    "query": "A guy secretly set up a hidden camera in a women's changing room. What covers this kind of spying?",
+    "sections": [
+      "77"
+    ]
+  },
+  {
+    "query": "A woman was kidnapped so she could be forced into marrying someone against her will. Which section applies?",
+    "sections": [
+      "87"
+    ]
+  },
+  {
+    "query": "An obscene book was being openly sold in the market. What section covers selling this kind of material?",
+    "sections": [
+      "294"
+    ]
+  },
+  {
+    "query": "A man made lewd gestures and sang vulgar songs in a public park, annoying everyone around. What section applies?",
+    "sections": [
+      "296"
+    ]
+  },
+  {
+    "query": "Someone tried to kill themselves just to pressure a government officer into not doing his job. What section covers this?",
+    "sections": [
+      "226"
+    ]
+  },
+  {
+    "query": "A parent left their 8-year-old alone in a remote area meaning to abandon the child for good. Which section fits?",
+    "sections": [
+      "93"
+    ]
+  },
+  {
+    "query": "Someone paid a child to commit a crime for them. What section covers using a kid this way?",
+    "sections": [
+      "95"
+    ]
+  },
+  {
+    "query": "A person lured a child away from home knowing full well the kid would probably end up being sexually exploited. Which section is relevant?",
+    "sections": [
+      "96"
+    ]
+  },
+  {
+    "query": "A newborn was secretly buried to hide the fact that a baby had even been born. What section covers this?",
+    "sections": [
+      "94"
+    ]
+  },
+  {
+    "query": "A person encouraged soldiers in the Indian Army to mutiny. What section applies?",
+    "sections": [
+      "159",
+      "160"
+    ]
+  },
+  {
+    "query": "A man wore an army uniform hoping to be mistaken for a real soldier. Which section covers this?",
+    "sections": [
+      "168"
+    ]
+  },
+  {
+    "query": "A landlord deliberately stopped a government officer from seizing his property during a legal auction. What section applies?",
+    "sections": [
+      "218",
+      "219"
+    ]
+  },
+  {
+    "query": "Someone physically blocked a government officer who was just trying to do his job. Which section did they break?",
+    "sections": [
+      "221"
+    ]
+  },
+  {
+    "query": "A person threatened a government officer to make him stop doing his official duties. What provision covers this?",
+    "sections": [
+      "224"
+    ]
+  },
+  {
+    "query": "A village watchman lied to the police about a crime just to throw off the investigation. Which section applies?",
+    "sections": [
+      "212"
+    ]
+  },
+  {
+    "query": "A person refused to answer questions from a government officer even though he was legally required to. What section covers this?",
+    "sections": [
+      "214"
+    ]
+  },
+  {
+    "query": "Someone destroyed a document that they were legally supposed to bring to court as evidence. What section covers this?",
+    "sections": [
+      "241"
+    ]
+  },
+  {
+    "query": "A judge deliberately passed a corrupt ruling that he knew went against the law. What section applies?",
+    "sections": [
+      "257"
+    ]
+  },
+  {
+    "query": "A government official deliberately let a murder suspect escape from custody. Which section is applicable?",
+    "sections": [
+      "259"
+    ]
+  },
+  {
+    "query": "Someone reused an old government revenue stamp just to dodge paying the actual tax. What section applies?",
+    "sections": [
+      "184"
+    ]
+  },
+  {
+    "query": "A husband forced himself on his wife sexually while they were living separately under a legal separation. What does BNS say about this?",
+    "sections": [
+      "67"
+    ]
+  },
+  {
+    "query": "A man tore a woman's clothes off in public trying to strip her against her will. What section covers this?",
+    "sections": [
+      "76"
+    ]
+  },
+  {
+    "query": "A guy catcalled a woman and made lewd comments to insult her in public. What section covers this?",
+    "sections": [
+      "79"
+    ]
+  },
+  {
+    "query": "A man got a woman to sleep with him by pretending they were already legally married when they weren't. What section covers this trick?",
+    "sections": [
+      "81"
+    ]
+  },
+  {
+    "query": "A couple went through a full wedding ceremony, but the groom knew all along it wasn't a legally valid marriage. What section applies?",
+    "sections": [
+      "83"
+    ]
+  },
+  {
+    "query": "A man lured a married woman away from her husband's house with the intention of having an affair with her. What section covers this?",
+    "sections": [
+      "84"
+    ]
+  },
+  {
+    "query": "A doctor performed an abortion on a woman without her consent and it wasn't a medical emergency. What section applies?",
+    "sections": [
+      "89"
+    ]
+  },
+  {
+    "query": "A woman died because someone deliberately caused her to miscarry. Which section covers a death that results from this?",
+    "sections": [
+      "90"
+    ]
+  },
+  {
+    "query": "Someone injured a pregnant woman so badly in an assault that her unborn child died as a result. What section applies?",
+    "sections": [
+      "92"
+    ]
+  },
+  {
+    "query": "A trafficker sold a young child to someone who intended to put the child into prostitution. What section covers this?",
+    "sections": [
+      "98"
+    ]
+  },
+  {
+    "query": "A man knowingly bought a child for the purpose of sexual exploitation. What section covers the buyer here?",
+    "sections": [
+      "99"
+    ]
+  },
+  {
+    "query": "Some kidnappers snatched a ten-year-old off the street specifically to steal the jewellery the child was wearing. What section fits this?",
+    "sections": [
+      "97"
+    ]
+  },
+  {
+    "query": "A newspaper printed detailed court proceedings of a sexual assault case without getting permission to do so. What section is violated?",
+    "sections": [
+      "73"
+    ]
+  },
+  {
+    "query": "A man was caught for a second time committing a sexual assault after already being convicted once before. What section covers repeat offenders like this?",
+    "sections": [
+      "71"
+    ]
+  },
+  {
+    "query": "A rape survivor was left in a permanent vegetative state because of the attack. What section covers this specific consequence?",
+    "sections": [
+      "66"
+    ]
+  },
+  {
+    "query": "A workplace harasser kept making unwelcome sexual comments and requests to a female colleague. What section covers sexual harassment at work?",
+    "sections": [
+      "75"
+    ]
+  },
+  {
+    "query": "Someone slapped another person during an argument, causing only minor pain with no lasting injury. What's the basic 'hurt' section here?",
+    "sections": [
+      "115"
+    ]
+  },
+  {
+    "query": "A person's leg was broken so badly in an assault that he was permanently disabled. What counts as grievous hurt here?",
+    "sections": [
+      "116",
+      "117"
+    ]
+  },
+  {
+    "query": "A man beat someone up specifically to force them to pay off a debt they didn't legally owe. What section covers using violence to extort like this?",
+    "sections": [
+      "119"
+    ]
+  },
+  {
+    "query": "Someone was beaten in order to force a false confession about a robbery they didn't commit. What section applies?",
+    "sections": [
+      "120"
+    ]
+  },
+  {
+    "query": "A shopkeeper injured a tax inspector specifically to stop him from doing his official inspection. What section covers hurting a public servant this way?",
+    "sections": [
+      "121"
+    ]
+  },
+  {
+    "query": "A man badly beat someone right after discovering the person had insulted his mother, in a sudden fit of rage. What section covers hurt caused during sudden provocation?",
+    "sections": [
+      "122"
+    ]
+  },
+  {
+    "query": "Someone slipped sedatives into a stranger's drink at a bar planning to rob them once they passed out. What section covers using drugs/poison to enable a crime?",
+    "sections": [
+      "123"
+    ]
+  },
+  {
+    "query": "A speeding truck driver nearly ran over three pedestrians on the footpath but no one actually got hurt. What section covers reckless endangerment like this?",
+    "sections": [
+      "125"
+    ]
+  },
+  {
+    "query": "Someone grabbed a person's arm and yanked them backward without their consent, just to mess with them. What is 'force' under BNS?",
+    "sections": [
+      "128"
+    ]
+  },
+  {
+    "query": "A man forcibly pushed a stranger off a footpath just to make him fall. Is that criminal force?",
+    "sections": [
+      "129"
+    ]
+  },
+  {
+    "query": "Someone waved a knife at another person threatening to stab them, without actually touching them. Is that assault?",
+    "sections": [
+      "130"
+    ]
+  },
+  {
+    "query": "A man slapped a woman after she rejected his advances, and it wasn't in response to any provocation from her. What section covers the punishment here?",
+    "sections": [
+      "131"
+    ]
+  },
+  {
+    "query": "A protester punched a police officer to stop him from breaking up their protest. What section applies?",
+    "sections": [
+      "132"
+    ]
+  },
+  {
+    "query": "Someone spat on another person deliberately to insult and humiliate them, completely unprovoked. What section covers assault meant to dishonour someone?",
+    "sections": [
+      "133"
+    ]
+  },
+  {
+    "query": "A pickpocket used force on a woman's hand trying to yank her purse away from her body. What section covers this?",
+    "sections": [
+      "134"
+    ]
+  },
+  {
+    "query": "A man grabbed and physically restrained his ex-girlfriend to stop her from leaving his car. What section covers using force to confine someone?",
+    "sections": [
+      "135"
+    ]
+  },
+  {
+    "query": "A woman slapped a man who had just groped her on the street. Since it happened right after his provocation, what lighter section might apply to her act?",
+    "sections": [
+      "136"
+    ]
+  },
+  {
+    "query": "Someone abducted an adult by tricking them with false promises into travelling to another city. What's the difference between kidnapping and this kind of trick? Which section covers it?",
+    "sections": [
+      "138"
+    ]
+  },
+  {
+    "query": "A girl was taken abroad from another country without her guardian's permission, and brought into India. What section covers bringing a kidnapped foreign minor into India?",
+    "sections": [
+      "141"
+    ]
+  },
+  {
+    "query": "A person knowingly hid a kidnapped child in his house, aware that the child had been abducted. What section applies?",
+    "sections": [
+      "142"
+    ]
+  },
+  {
+    "query": "A trafficker who'd already sold a woman into exploitation then went on to actually exploit her sexually himself. What section covers the exploitation, separate from the trafficking itself?",
+    "sections": [
+      "144"
+    ]
+  },
+  {
+    "query": "A group secretly plotted together to wage war against the Indian government, even though the plan never got carried out. What section covers just conspiring to do this?",
+    "sections": [
+      "148"
+    ]
+  },
+  {
+    "query": "Some men were caught stockpiling weapons specifically to prepare for an armed uprising against the government. What section applies?",
+    "sections": [
+      "149"
+    ]
+  },
+  {
+    "query": "A person hid people who were planning to wage war against India, knowing exactly what they intended to do. What section covers concealing this kind of plot?",
+    "sections": [
+      "150"
+    ]
+  },
+  {
+    "query": "A country that's at peace with India had its territory raided and looted by a group of Indians. What section covers this kind of foreign raid?",
+    "sections": [
+      "154"
+    ]
+  },
+  {
+    "query": "Someone knowingly bought goods that had been looted during a raid on a friendly foreign country. What section applies?",
+    "sections": [
+      "155"
+    ]
+  },
+  {
+    "query": "A jail officer deliberately let a prisoner of war escape from custody. What section applies?",
+    "sections": [
+      "156"
+    ]
+  },
+  {
+    "query": "A jail guard was just careless and let a prisoner of war escape, without meaning to help him. What section covers this negligence?",
+    "sections": [
+      "157"
+    ]
+  },
+  {
+    "query": "Someone helped a prisoner of war escape and then hid him afterward. What section covers this?",
+    "sections": [
+      "158"
+    ]
+  },
+  {
+    "query": "A soldier deserted his post and someone else was found hiding him from the authorities. What section covers harbouring an army deserter?",
+    "sections": [
+      "164"
+    ]
+  },
+  {
+    "query": "A candidate used threats and pressure to stop voters from casting their vote the way they wanted to. What section covers this kind of election intimidation?",
+    "sections": [
+      "171"
+    ]
+  },
+  {
+    "query": "A candidate spent way beyond what he was supposed to, secretly paying voters in cash for their support. Which section covers illegal election payments?",
+    "sections": [
+      "176"
+    ]
+  },
+  {
+    "query": "A candidate's team never bothered filing their official election expense accounts after the results. What section covers this failure?",
+    "sections": [
+      "177"
+    ]
+  },
+  {
+    "query": "Someone made fake copies of official documents designed to look just like currency notes, meant to trick people. What section applies?",
+    "sections": [
+      "182"
+    ]
+  },
+  {
+    "query": "A clerk scraped off the ink from a government stamp so it looked unused, planning to reuse it and cheat the government of revenue. What section applies?",
+    "sections": [
+      "183"
+    ]
+  },
+  {
+    "query": "Someone rubbed off the cancellation mark on an already-used postage stamp so it looked fresh. What section covers this?",
+    "sections": [
+      "185"
+    ]
+  },
+  {
+    "query": "A print shop was caught manufacturing fake stamps that looked like official government ones just for fun/collection, but it's still against the rules. What section covers this ban?",
+    "sections": [
+      "186"
+    ]
+  },
+  {
+    "query": "A worker at a government mint deliberately made coins with less silver in them than the law required. What section covers this?",
+    "sections": [
+      "187"
+    ]
+  },
+  {
+    "query": "A mint employee smuggled out one of the machines used to stamp coins. What section applies?",
+    "sections": [
+      "188"
+    ]
+  },
+  {
+    "query": "Five or more people gathered together with the shared plan to forcibly occupy someone else's land. Is that already an unlawful assembly, even before anything happens?",
+    "sections": [
+      "189"
+    ]
+  },
+  {
+    "query": "During a riot, one member of the mob threw a stone that hit a bystander, even though other rioters didn't personally throw anything. Are all of them still guilty of the injury?",
+    "sections": [
+      "190"
+    ]
+  },
+  {
+    "query": "Someone deliberately provoked a crowd hoping it would turn into a riot, and it actually did break out. What section covers instigating a riot like this?",
+    "sections": [
+      "192"
+    ]
+  },
+  {
+    "query": "A landlord knew a riot was being planned on his property and did nothing to stop it or inform the police. What section makes him liable?",
+    "sections": [
+      "193"
+    ]
+  },
+  {
+    "query": "A police officer trying to break up a riot was attacked and obstructed by the crowd. What section covers assaulting police during riot control?",
+    "sections": [
+      "195"
+    ]
+  },
+  {
+    "query": "A public servant framed a document with information he knew was false, planning to hurt someone with it. What section covers this?",
+    "sections": [
+      "201"
+    ]
+  },
+  {
+    "query": "A government officer was secretly running a private business on the side despite this being against the rules of his post. What section applies?",
+    "sections": [
+      "202"
+    ]
+  },
+  {
+    "query": "A public servant placed a bid to buy government property he himself was in charge of auctioning off. What section applies?",
+    "sections": [
+      "203"
+    ]
+  },
+  {
+    "query": "Someone tore down a court's official notice before it could be delivered or published, to stop someone from finding out about a case against them. What section covers this?",
+    "sections": [
+      "207"
+    ]
+  },
+  {
+    "query": "A person legally bound to give information to the police about a serious crime just kept quiet and never told them. What section covers this failure to report?",
+    "sections": [
+      "211"
+    ]
+  },
+  {
+    "query": "Someone refused to take an oath when a public servant legally asked them to do so before giving a statement. What section applies?",
+    "sections": [
+      "213"
+    ]
+  },
+  {
+    "query": "A person gave a written statement to an official but then flat-out refused to sign it. What section covers this?",
+    "sections": [
+      "215"
+    ]
+  },
+  {
+    "query": "Someone swore an oath before an official and then gave a statement that was completely false. What section covers lying under oath to a public servant, separate from lying in actual court testimony?",
+    "sections": [
+      "216"
+    ]
+  },
+  {
+    "query": "A person physically stopped police officers from selling off property that had been legally seized. What section applies?",
+    "sections": [
+      "219"
+    ]
+  },
+  {
+    "query": "Someone placed an illegal bid to buy back property that a court officer had seized and put up for sale. What section covers this?",
+    "sections": [
+      "220"
+    ]
+  },
+  {
+    "query": "A person who was legally required to help a police officer catch a fleeing criminal just stood there and refused to help. What section covers this refusal to assist?",
+    "sections": [
+      "222"
+    ]
+  },
+  {
+    "query": "Someone ignored an official curfew order that had been properly announced by the local authorities. What section covers disobeying a public order like this?",
+    "sections": [
+      "223"
+    ]
+  },
+  {
+    "query": "A shopkeeper threatened someone to stop them from going to the police station to file a complaint. What section covers this kind of intimidation?",
+    "sections": [
+      "225"
+    ]
+  },
+  {
+    "query": "A person gave an official false certificate saying someone had passed a medical test that they never actually took. What section applies?",
+    "sections": [
+      "234"
+    ]
+  },
+  {
+    "query": "Someone used a fake certificate as though it were genuine, even though they knew it was forged. What section covers using it, separate from making it?",
+    "sections": [
+      "235"
+    ]
+  },
+  {
+    "query": "A person signed a false declaration that's normally treated as valid legal evidence, like an affidavit. What section covers making this false declaration?",
+    "sections": [
+      "236"
+    ]
+  },
+  {
+    "query": "Someone hid a murder weapon to make sure the crime couldn't be traced back to the killer. What section covers destroying evidence like this?",
+    "sections": [
+      "238"
+    ]
+  },
+  {
+    "query": "A witness who legally had to report a crime he saw simply chose to stay silent about it. What section covers this?",
+    "sections": [
+      "239"
+    ]
+  },
+  {
+    "query": "A person gave the police deliberately false details about a crime that actually did happen, just to mess up the investigation. What section covers this, separate from staying silent?",
+    "sections": [
+      "240"
+    ]
+  },
+  {
+    "query": "A man pretended to be someone else in court just to sign documents or take part in a case on their behalf. What section covers this kind of impersonation in legal proceedings?",
+    "sections": [
+      "242"
+    ]
+  },
+  {
+    "query": "Someone secretly moved his assets to a relative's name right before a court could seize them over unpaid debts. What section covers this?",
+    "sections": [
+      "243"
+    ]
+  },
+  {
+    "query": "A person falsely claimed ownership of property that was about to be legally seized, just to stop the seizure. What section applies?",
+    "sections": [
+      "244"
+    ]
+  },
+  {
+    "query": "A person deliberately let a court pass a judgment against him for money he never actually owed, as part of some scheme. What section covers this?",
+    "sections": [
+      "245"
+    ]
+  },
+  {
+    "query": "Someone filed a completely fake legal claim in court knowing it had no truth to it. What section covers dishonestly making a false claim like this?",
+    "sections": [
+      "246"
+    ]
+  },
+  {
+    "query": "A person tricked a court into passing a decree ordering someone to pay money that was never actually due. What section covers obtaining a decree fraudulently?",
+    "sections": [
+      "247"
+    ]
+  },
+  {
+    "query": "Someone filed a false police complaint accusing an innocent person of a crime just to get them in trouble. What section covers this malicious false charge?",
+    "sections": [
+      "248"
+    ]
+  },
+  {
+    "query": "A person accepted money in exchange for helping return stolen goods to their owner, without reporting the theft. What section covers this?",
+    "sections": [
+      "252"
+    ]
+  },
+  {
+    "query": "Someone sheltered a criminal who had already broken out of jail and had a warrant out for his arrest. What section applies?",
+    "sections": [
+      "253"
+    ]
+  },
+  {
+    "query": "A village elder was found hiding a group of dacoits who regularly carried out armed robberies in the area. What section covers harbouring robbers like this?",
+    "sections": [
+      "254"
+    ]
+  },
+  {
+    "query": "A public servant deliberately disobeyed the law just to help a friend's property escape legal seizure. What section applies?",
+    "sections": [
+      "255"
+    ]
+  },
+  {
+    "query": "A public servant wrote up an incorrect official record specifically to help someone dodge punishment. What section applies?",
+    "sections": [
+      "256"
+    ]
+  },
+  {
+    "query": "A jail official knowingly locked someone up even though he was aware the confinement was against the law. What section covers this?",
+    "sections": [
+      "258"
+    ]
+  },
+  {
+    "query": "A public servant was supposed to arrest someone under a valid warrant but deliberately chose not to. What section covers this failure to arrest?",
+    "sections": [
+      "260"
+    ]
+  },
+  {
+    "query": "A jail guard let a prisoner escape simply because he was careless, not because he meant to help him. What section covers negligent escape like this?",
+    "sections": [
+      "261"
+    ]
+  },
+  {
+    "query": "Someone actively fought back and resisted the police who were legally trying to arrest them. What section applies?",
+    "sections": [
+      "262"
+    ]
+  },
+  {
+    "query": "A man's friends physically blocked the police from arresting him, helping him resist arrest. What section covers helping someone else resist arrest?",
+    "sections": [
+      "263"
+    ]
+  },
+  {
+    "query": "A prisoner who had been let out on bail simply never showed up to his next court date. What section covers skipping bail like this?",
+    "sections": [
+      "269"
+    ]
+  },
+  {
+    "query": "A person insulted a judge and interrupted proceedings while sitting in an actual courtroom session. What section applies?",
+    "sections": [
+      "267"
+    ]
+  },
+  {
+    "query": "Someone impersonated a jury member/assessor at a trial without actually being appointed to that role. What section covers this?",
+    "sections": [
+      "268"
+    ]
+  },
+  {
+    "query": "A factory kept dumping waste that made the surrounding air toxic and unbearable for everyone living nearby. What general public nuisance section covers this?",
+    "sections": [
+      "270"
+    ]
+  },
+  {
+    "query": "A person suffering from a contagious disease knowingly moved around in public in a way that could spread the infection, meaning to spread it. What section covers doing this deliberately?",
+    "sections": [
+      "272"
+    ]
+  },
+  {
+    "query": "Someone infected with a serious disease ignored the doctor's orders and broke a formal quarantine rule. What section applies?",
+    "sections": [
+      "273"
+    ]
+  },
+  {
+    "query": "A vendor was caught selling food that had gone bad and could seriously make people sick. What section covers selling this kind of harmful food?",
+    "sections": [
+      "275"
+    ]
+  },
+  {
+    "query": "A shop sold a customer one drug while claiming it was a completely different medicine. What section covers this mislabeling?",
+    "sections": [
+      "278"
+    ]
+  },
+  {
+    "query": "A factory dumped chemical waste directly into the public water source that villagers use for drinking. What section covers polluting public water like this?",
+    "sections": [
+      "279"
+    ]
+  },
+  {
+    "query": "A factory released thick toxic smoke that made the surrounding air dangerous to breathe. What section covers this?",
+    "sections": [
+      "280"
+    ]
+  },
+  {
+    "query": "A ferry captain was found steering the boat recklessly, putting the passengers on board at risk. What section covers rash navigation?",
+    "sections": [
+      "282"
+    ]
+  },
+  {
+    "query": "Someone rigged up a fake lighthouse beacon that ended up misleading ships and nearly causing a wreck. What section covers this?",
+    "sections": [
+      "283"
+    ]
+  },
+  {
+    "query": "A boat operator packed way more passengers onto an old, unsafe ferry than it could safely carry. What section applies?",
+    "sections": [
+      "284"
+    ]
+  },
+  {
+    "query": "A construction company left a massive pit right in the middle of a public road without any warning signs. What section covers creating a dangerous obstruction like this?",
+    "sections": [
+      "285"
+    ]
+  },
+  {
+    "query": "A worker at a fireworks factory handled explosive material so carelessly that it put everyone nearby at risk. What section covers negligent handling of explosives?",
+    "sections": [
+      "288"
+    ]
+  },
+  {
+    "query": "A factory owner didn't secure dangerous machinery properly, and it ended up injuring workers who walked past it. What section covers negligence with machinery?",
+    "sections": [
+      "289"
+    ]
+  },
+  {
+    "query": "A construction crew was tearing down an old building so carelessly that it endangered people passing by on the street. What section applies?",
+    "sections": [
+      "290"
+    ]
+  },
+  {
+    "query": "A dog owner let his aggressive dog roam free knowing it could attack people, and didn't take basic precautions. What section covers negligence with animals?",
+    "sections": [
+      "291"
+    ]
+  },
+  {
+    "query": "A factory kept polluting the air well after a court had already ordered it to stop. What section covers ignoring a nuisance injunction like that?",
+    "sections": [
+      "293"
+    ]
+  },
+  {
+    "query": "A shopkeeper sold explicit magazines to a minor. What section specifically covers selling obscene material to a child?",
+    "sections": [
+      "295"
+    ]
+  },
+  {
+    "query": "Someone was running an illegal private lottery out of their shop. What section covers keeping a lottery office like this?",
+    "sections": [
+      "297"
+    ]
+  },
+  {
+    "query": "A man wandered around trespassing in a graveyard, disturbing graves out of pure mischief. What section covers trespassing on burial grounds?",
+    "sections": [
+      "301"
+    ]
+  },
+  {
+    "query": "Someone made deliberately hurtful comments specifically meant to wound another individual's religious feelings, not aimed at a whole community. What section covers this personal version, versus the community one?",
+    "sections": [
+      "302"
+    ]
+  },
+  {
+    "query": "A person took someone's phone off a table without permission, planning to keep it for good. What's the basic theft section here?",
+    "sections": [
+      "303"
+    ]
+  },
+  {
+    "query": "A thief broke into a temple at night and stole the donation box. What section covers theft happening inside a place of worship?",
+    "sections": [
+      "305"
+    ]
+  },
+  {
+    "query": "Someone got ready with rope and a weapon before committing a theft, in case they needed to restrain or hurt the owner. What section covers this kind of prepared theft?",
+    "sections": [
+      "307"
+    ]
+  },
+  {
+    "query": "A man threatened to leak embarrassing photos of someone unless they paid him money. What section covers this kind of threat-based extortion?",
+    "sections": [
+      "308"
+    ]
+  },
+  {
+    "query": "A gang was caught trying to rob a jewellery store while carrying a loaded gun, though they hadn't actually pulled it out yet. What section covers attempting armed robbery like this?",
+    "sections": [
+      "312"
+    ]
+  },
+  {
+    "query": "A person was found to be a regular, known member of a robbery gang, even without pinning one specific robbery on him. What section punishes just belonging to such a gang?",
+    "sections": [
+      "313"
+    ]
+  },
+  {
+    "query": "A man found his dead neighbour's wallet lying in the house right after the neighbour passed away, and just kept the cash inside. What section covers this specific situation?",
+    "sections": [
+      "315"
+    ]
+  },
+  {
+    "query": "A shopkeeper who was hiding from creditors moved all his stock to a friend's warehouse just so it couldn't be seized to pay his debts. What section covers this?",
+    "sections": [
+      "320"
+    ]
+  },
+  {
+    "query": "Someone deliberately made sure they had no money in the bank right before a court judgment against them, just to dodge paying up. What section covers this?",
+    "sections": [
+      "321"
+    ]
+  },
+  {
+    "query": "A person sold his house through a deed that listed a fake, much lower price just to cheat the actual buyer or the tax authorities. What section covers this kind of fraudulent deed?",
+    "sections": [
+      "322"
+    ]
+  },
+  {
+    "query": "A man hid his valuables at a friend's place specifically to stop his creditors from seizing them. What general section covers this kind of asset-hiding?",
+    "sections": [
+      "323"
+    ]
+  },
+  {
+    "query": "Someone poisoned a neighbour's pet dog out of spite. What section covers killing or maiming an animal like this?",
+    "sections": [
+      "325"
+    ]
+  },
+  {
+    "query": "A person set fire to a rival shop's storage shed, destroying all the goods inside. What section covers mischief by fire like this?",
+    "sections": [
+      "326"
+    ]
+  },
+  {
+    "query": "A ship's crew deliberately ran their own vessel aground to later claim insurance fraud. What section covers this?",
+    "sections": [
+      "328"
+    ]
+  },
+  {
+    "query": "Someone walked onto a farmer's field without permission just to annoy him. What section covers basic criminal trespass?",
+    "sections": [
+      "329"
+    ]
+  },
+  {
+    "query": "A burglar broke into a jewellery shop at night specifically planning to steal, going equal to entering by breaking a lock. What section covers this house-breaking?",
+    "sections": [
+      "332"
+    ]
+  },
+  {
+    "query": "Before breaking into a house, a burglar came prepared with a knife in case he needed to threaten or hurt anyone inside. What section covers this kind of armed preparation?",
+    "sections": [
+      "333"
+    ]
+  },
+  {
+    "query": "A thief pried open a locked cash box to steal the money inside it. What section covers breaking open a container like this?",
+    "sections": [
+      "334"
+    ]
+  },
+  {
+    "query": "A man drew up a completely fake will and signed it in someone else's name after they'd died. What section covers making this kind of false document?",
+    "sections": [
+      "335"
+    ]
+  },
+  {
+    "query": "Someone forged an official court record to make it look like a case had already been dismissed. What section covers forging court documents?",
+    "sections": [
+      "337"
+    ]
+  },
+  {
+    "query": "A person kept a document he knew was forged, planning to use it as if it were genuine. What section covers just possessing forged documents like this?",
+    "sections": [
+      "339"
+    ]
+  },
+  {
+    "query": "A man used a forged property document in a transaction, knowing full well it wasn't genuine. What section covers using a forged document, separate from making it?",
+    "sections": [
+      "340"
+    ]
+  },
+  {
+    "query": "Someone made a fake official seal to use for forging important documents down the line. What section covers making counterfeit seals?",
+    "sections": [
+      "341"
+    ]
+  },
+  {
+    "query": "A company was caught keeping two sets of account books to hide how much profit it was actually making. What section covers falsifying accounts like this?",
+    "sections": [
+      "344"
+    ]
+  },
+  {
+    "query": "A factory put a rival company's registered trademark on its own cheap products to fool customers. What general section defines this kind of property mark violation?",
+    "sections": [
+      "345",
+      "346"
+    ]
+  },
+  {
+    "query": "Someone made a special tool specifically designed for stamping counterfeit brand logos onto fake products. What section covers possessing tools like this?",
+    "sections": [
+      "348"
+    ]
+  },
+  {
+    "query": "A shopkeeper knowingly sold products that had someone else's brand's fake logo stamped on them. What section covers selling goods with a counterfeit mark?",
+    "sections": [
+      "349"
+    ]
+  },
+  {
+    "query": "A trader put a false weight or quality mark on a sack of grain to trick buyers about what was actually inside. What section covers this kind of false marking on goods?",
+    "sections": [
+      "350"
+    ]
+  },
+  {
+    "query": "A person insulted another man loudly in public specifically hoping to provoke him into a physical fight. What section covers intentional insult meant to trigger violence?",
+    "sections": [
+      "352"
+    ]
+  },
+  {
+    "query": "Someone spread a rumour online that a certain community was about to riot, just to cause panic and public disorder. What section covers spreading this kind of mischief-causing statement?",
+    "sections": [
+      "353"
+    ]
+  },
+  {
+    "query": "A godman convinced a villager that bad things would happen to him unless he handed over money, claiming divine anger otherwise. What section covers this kind of manipulation?",
+    "sections": [
+      "354"
+    ]
+  },
+  {
+    "query": "A drunk man stumbled into a temple and started causing a scene, misbehaving loudly in public. What section covers public misconduct while intoxicated?",
+    "sections": [
+      "355"
+    ]
+  },
+  {
+    "query": "Someone posted a nasty, false rumour about a business owner online that damaged his reputation badly. What section covers defamation like this?",
+    "sections": [
+      "356"
+    ]
+  },
+  {
+    "query": "A man was legally obligated to take care of his elderly, helpless father but stopped providing food and support altogether. What section covers breaking this duty of care?",
+    "sections": [
+      "357"
+    ]
+  }
+]

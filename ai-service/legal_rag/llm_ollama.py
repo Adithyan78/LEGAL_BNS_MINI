@@ -574,7 +574,7 @@ YOUR TASK - CRITICAL INSTRUCTIONS:
 **PHASE 1: STRICT FILTERING & RERANKING**
 Your primary job is to FILTER OUT sections that don't actually apply. The retrieval system may return semantically similar but legally irrelevant sections.
 
-For each candidate section, rigorously verify:
+For EVERY retrieved section above, you MUST rigorously verify and produce a verdict — do not silently skip any section, including ones you plan to exclude.
 
 ✓ ACTUS REUS (Criminal Act):
   - Is there a clear, completed physical act described in the case?
@@ -596,9 +596,26 @@ For each candidate section, rigorously verify:
   - Vague or incomplete facts cannot support a definitive legal conclusion
   - When in doubt about applicability, EXCLUDE the section
 
+✓ INDEPENDENT ACTS DOCTRINE:
+  - A single case may contain MULTIPLE separate criminal acts (e.g. a stalking offense AND a resulting death). Do NOT treat an independently completed offense as mere "background context" to a more serious outcome.
+  - Evaluate each retrieved section against the specific act it targets, not only against the case's ultimate harm.
+  - A section should NOT be excluded just because a different, more severe section also applies to the same case.
+
+✓ MUTUALLY EXCLUSIVE GRADATIONS:
+  - If multiple retrieved sections are alternative degrees of the same underlying offense (e.g. different homicide gradations based on degree of intention/knowledge), do NOT include them all as equally applicable.
+  - Select the single best-fitting section for that specific harm, and explicitly state in the reasoning why the other gradations were excluded.
+
+✓ MANDATORY VERDICT LOG:
+  - Before Phase 2, list every retrieved Section ID with a one-line INCLUDED or EXCLUDED verdict.
+  - Every EXCLUDED verdict must name the SPECIFIC missing or unsatisfied ingredient — a vague dismissal ("doesn't directly address X") is not acceptable.
+  - A section with a high retrieval similarity score that is excluded requires an especially clear, specific justification.
+
+
 **PHASE 2: ANALYSIS FORMAT**
 
-For ONLY the sections that pass all filters above, provide:
+First, output the Mandatory Verdict Log (Section ID → INCLUDED/EXCLUDED → reason) for every retrieved section.
+
+Then, for ONLY the sections marked INCLUDED above, provide:
 
 ───────────────────────────────────────────────────────────
 
@@ -680,14 +697,7 @@ YOUR TASK - CRITICAL INSTRUCTIONS:
 **PHASE 1: STRICT FILTERING & RERANKING**
 Your primary job is to FILTER OUT sections that don't actually apply. The retrieval system may return semantically similar but legally irrelevant sections.
 
-For each candidate section, rigorously verify:
-
-✓ STRICT RETRIEVAL BOUNDARY:
-  - You MUST ONLY analyze sections that are explicitly provided in the CANDIDATE BNS SECTIONS above
-  - NEVER reference, assume, or fabricate content for any section not present in the retrieved context
-  - If a section's full text is not in the retrieved content, DO NOT include it in your analysis
-  - If NO retrieved section fully applies, explicitly state: "No retrieved section sufficiently satisfies all ingredients for this case."
-  - Do NOT use your general legal knowledge to fill gaps in retrieved section text
+For EVERY retrieved section above, you MUST rigorously verify and produce a verdict — do not silently skip any section, including ones you plan to exclude.
 
 ✓ ACTUS REUS (Criminal Act):
   - Is there a clear, completed physical act described in the case?
@@ -709,14 +719,24 @@ For each candidate section, rigorously verify:
   - Vague or incomplete facts cannot support a definitive legal conclusion
   - When in doubt about applicability, EXCLUDE the section
 
-✓ SECTION NUMBERING:
-  - Always use BNS section numbers when referencing applicable sections
-  - Never quote IPC section numbers in the punishment or analysis blocks
-  - IPC section numbers must ONLY appear inside the IPC EQUIVALENT & CHANGES block
+✓ INDEPENDENT ACTS DOCTRINE:
+  - A single case may contain MULTIPLE separate criminal acts . Do NOT treat an independently completed offense as mere "background context" to a more serious outcome.
+  - Evaluate each retrieved section against the specific act it targets, not only against the case's ultimate harm.
+  - A section should NOT be excluded just because a different, more severe section also applies to the same case.
+
+✓ MUTUALLY EXCLUSIVE GRADATIONS:
+  - If multiple retrieved sections are alternative degrees of the same underlying offense (e.g. different homicide gradations based on degree of intention/knowledge), do NOT include them all as equally applicable.
+  - Select the single best-fitting section for that specific harm, and explicitly state in the reasoning why the other gradations were excluded.
+
+✓ MANDATORY VERDICT LOG:
+  - Before Phase 2, list every retrieved Section ID with a one-line INCLUDED or EXCLUDED verdict.
+  - Every EXCLUDED verdict must name the SPECIFIC missing or unsatisfied ingredient — a vague dismissal ("doesn't directly address X") is not acceptable.
+  - A section with a high retrieval similarity score that is excluded requires an especially clear, specific justification.
+
 
 **PHASE 2: ANALYSIS FORMAT**
 
-For ONLY the sections that pass all filters above, provide:
+First, output the Mandatory Verdict Log (Section ID → INCLUDED/EXCLUDED → reason) for every retrieved section.
 
 ───────────────────────────────────────────────────────────
 

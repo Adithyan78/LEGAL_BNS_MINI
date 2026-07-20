@@ -107,6 +107,16 @@ function LegalResponseRenderer({ text }) {
     setExpandedSections((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
+  /* ---------- Strip inline markdown the model tends to emit ---------- */
+  const stripMarkdownLine = (line) =>
+    line
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .replace(/__(.*?)__/g, "$1")
+      .replace(/\*(.*?)\*/g, "$1")
+      .replace(/_(.*?)_/g, "$1")
+      .replace(/^#{1,6}\s*/, "")
+      .trim();
+
   /* ---------- Parse structured response ---------- */
   const parseSections = (input) => {
     const lines = input.split("\n");
@@ -116,14 +126,14 @@ function LegalResponseRenderer({ text }) {
     let mode = null;
 
     lines.forEach((line) => {
-      const trimmed = line.trim();
+      const trimmed = stripMarkdownLine(line);
       if (!trimmed) return;
 
       if (trimmed.includes("APPLICABLE SECTION")) {
         if (current) sections.push(current);
         current = {
           title: trimmed,
-          sectionId: trimmed.match(/BNS\s*\d+/i)?.[0] || trimmed,
+          sectionId: trimmed.match(/(?:BNS|SECTION)[\s_]*\d+(?:\s*\(\d+\))?/i)?.[0]?.replace(/_/g, " ") || trimmed,
           definition: "",
           ingredients: "",
           reasoning: "",
@@ -169,12 +179,21 @@ function LegalResponseRenderer({ text }) {
 
   const sections = parseSections(text);
 
+  /* ---------- Fallback: model didn't use the expected section format ---------- */
+  if (sections.length === 0) {
+    return (
+      <div className="mt-4 whitespace-pre-line text-sm leading-7 text-slate-700">
+        {text}
+      </div>
+    );
+  }
+
   // Count applicable sections (not conclusion) to decide default expand state
   const applicableSectionCount = sections.filter((s) => s.content === undefined).length;
   const defaultExpanded = applicableSectionCount <= 2;
 
   /* ---------- Render a sub-block within a section ---------- */
-  const renderSubBlock = (label, content, isFacts = false, isMuted = false) => {
+  const renderSubBlock = (label, content, isList = false, isMuted = false) => {
     if (!content?.trim()) return null;
 
     return (
@@ -183,11 +202,11 @@ function LegalResponseRenderer({ text }) {
           {label}
         </p>
         <div className={`mt-2 whitespace-pre-line text-sm leading-7 ${isMuted ? "text-slate-500" : "text-slate-700"}`}>
-          {isFacts ? (
+          {isList ? (
             content.trim().split("\n").filter(Boolean).map((line, i) => (
               <div key={i} className="flex items-start gap-2 py-0.5">
                 <CheckIcon className="w-4 h-4 text-[#B8860B] mt-1.5 shrink-0" />
-                <span>{line.replace(/^[-•✓✔]\s*/, "")}</span>
+                <span>{line.replace(/^(?:[-•✓✔]|\d+[.)])\s*/, "")}</span>
               </div>
             ))
           ) : (
@@ -253,7 +272,7 @@ function LegalResponseRenderer({ text }) {
             {expanded && (
               <div className="px-5 pb-5 border-t border-slate-100">
                 {renderSubBlock("Section Definition", section.definition)}
-                {renderSubBlock("Essential Ingredients", section.ingredients)}
+                {renderSubBlock("Essential Ingredients", section.ingredients, true)}
                 {renderSubBlock("Case Facts Analysis", section.facts, true)}
                 {renderSubBlock("Legal Reasoning", section.reasoning)}
                 {renderSubBlock("Prescribed Punishment", section.punishment)}
