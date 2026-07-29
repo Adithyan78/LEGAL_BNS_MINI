@@ -19,5 +19,5 @@ __pycache__/
 venv/
 ai-service/legal_rag/venv/
 
-ai-service\legal_rag\bns_max.json
-ai-service\legal_rag\bns_all.json
+ai-service/legal_rag/bns_max.json
+ai-service\legal_rag/bns_all.json
