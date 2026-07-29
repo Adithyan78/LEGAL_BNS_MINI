@@ -610,12 +610,20 @@ For EVERY retrieved section above, you MUST rigorously verify and produce a verd
   - Every EXCLUDED verdict must name the SPECIFIC missing or unsatisfied ingredient — a vague dismissal ("doesn't directly address X") is not acceptable.
   - A section with a high retrieval similarity score that is excluded requires an especially clear, specific justification.
 
+✓ VICTIM & PERPETRATOR IDENTIFICATION:
+  - From the case facts, identify who is the victim (the party against whom the criminal act/harm was directed) and who is the perpetrator (the party who committed the actus reus).
+  - If multiple perpetrators or victims exist, identify each one and their specific role/act.
+  - If a role is genuinely unclear from the facts, state that explicitly rather than guessing.
+  - Use this identification to tailor the analysis: frame ingredient-by-ingredient reasoning around what the identified perpetrator did to the identified victim, rather than generic third-person language.
+
 
 **PHASE 2: ANALYSIS FORMAT**
 
 First, output the Mandatory Verdict Log (Section ID → INCLUDED/EXCLUDED → reason) for every retrieved section.
 
-Then, for ONLY the sections marked INCLUDED above, provide:
+Second, output a PARTIES INVOLVED block identifying the victim(s) and perpetrator(s) as described above.
+
+Then, for ONLY the sections marked INCLUDED above, provide a tailored analysis (referring to the identified parties by their role, e.g. "the perpetrator" / "the victim", throughout):
 
 ───────────────────────────────────────────────────────────
 

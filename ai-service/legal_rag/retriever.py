@@ -80,7 +80,7 @@ INSTRUCTION = "Represent this legal query for retrieving relevant law sections: 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 print("Loading FAISS index...")
-index = faiss.read_index(os.path.join(BASE_DIR, "faiss_new.bin"))
+index = faiss.read_index(os.path.join(BASE_DIR, "faiss_all.bin"))
 
 print("Loading dataset...")
 with open(os.path.join(BASE_DIR, "bns_max.json"), "r", encoding="utf-8") as f:

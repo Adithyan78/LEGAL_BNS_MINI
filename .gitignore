@@ -18,3 +18,6 @@ __pycache__/
 # Virtual environment
 venv/
 ai-service/legal_rag/venv/
+
+ai-service\legal_rag\bns_max.json
+ai-service\legal_rag\bns_all.json
